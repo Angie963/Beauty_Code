@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados - Panel Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+    <header>
+        <nav id="menu-admin">
+            <div>
+                <img src="img/logo con delineado.png" class="logo">
+            </div>
+
+            <div>
+                <a href="dashboard-admin.html">
+                    <img src="img/iconos/juego-tablero-alt.png" style="width:15px; padding-right:7px">Dashboard</a>
+                <a href="admin-servicios.html">
+                    <img src="img/iconos/bolsas-de-compras.png" style="width:20px; padding-right:7px">Servicios</a>
+                <a href="admin-galeria.html">
+                    <img src="img/iconos/copiar-imagen.png" style="width:20px; padding-right:7px">Galería</a>
+                <a href="admin-empleados.html">
+                    <img src="img/iconos/empleados-mujer-hombre.png" style="width:19px; padding-right:7px">Empleados</a>
+                <a href="admin-disponibilidad.html">
+                    <img src="img/iconos/chequeo-de-tiempo.png" style="width:18px; padding-right: 7px;">Disponibilidad</a>
+                <a href="admin-citas.html">
+                    <img src="img/iconos/dia-del-calendario.png" style="width:17px; padding-right:7px">Citas</a>
+            </div>
+
+            <a href="login.html">
+                <button class="boton-citas">Cerrar Sesión</button>
+            </a>
+        </nav>
+    </header>
+    <main class="admin-container">
+
+    <h1>Disponibilidad</h1>
+    <p>Gestiona horarios de los empleados.</p>
+
+    <section class="admin-card">
+
+        <form class="admin-form">
+
+            <label>Empleado</label>
+            <select>
+                <option>Seleccione...</option>
+            </select>
+
+            <label>Horario</label>
+            <input type="time">
+
+            <label>Día</label>
+            <select>
+                <option>Lunes</option>
+                <option>Martes</option>
+                <option>Miércoles</option>
+                <option>Jueves</option>
+                <option>Viernes</option>
+                <option>Sábado</option>
+            </select>
+
+            <button class="btn-primary">Guardar Disponibilidad</button>
+
+        </form>
+
+    </section>
+
+</main>
+</body>
+</html>

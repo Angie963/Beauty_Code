@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Code - Agenda Cita</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="index-body">
+
+    <header>
+    <nav id="menu">
+        <div>
+            <img src="img/logo con delineado.png" alt="Logo Beauty Code", class="logo">
+        </div>
+        
+        <div>
+            <a href="index.html">
+                <img src="img/iconos/chimenea-de-la-casa.png" style="width:18px;padding-right:7px">Inicio</a>
+            <a href="services.html">
+                <img src="img/iconos/bolsas-de-compras.png" style="width:20px;padding-right:7px">Servicios</a>
+            <a href="gallery.html">
+                <img src="img/iconos/copiar-imagen.png" style="width:20px;padding-right:7px">Galería</a>
+            <a href="reviews.html">
+                <img src="img/iconos/revision-de-comentarios.png" style="width:20px;padding-right:7px">Reseñas</a>
+            <a href="appointments.html">
+                <img src="img/iconos/dia-del-calendario.png" style="width:18px;padding-right:7px">Citas</a>
+            <a href="perfil.html">
+                <img src="img/iconos/lapiz-de-usuario.png" style="width:18px;padding-right:7px">Perfil</a>
+        </div>
+        <a href="login.html">
+        <button class="boton-citas">Cerrar Sesión</button>
+        </a>
+    </nav>
+    </header>
+
+    <main class="cita-container">
+        <h1 class="title">Agendar una Cita</h1>
+        <p class="subtitle">
+            Selecciona el servicio, manicura, fecha y hora para reservar tu cita.
+        </p>
+
+        <form class="cita-form">
+
+            <label>Servicios</label>
+            <select required>
+                <option value="">Seleccione un servicio...</option>
+                <option>Manicura tradicional</option>
+                <option>Manicura con gel</option>
+                <option>Uñas acrílicas</option>
+                <option>Spa de manos</option>
+            </select>
+
+            <label>Fecha</label>
+            <input type="date" required>
+
+            <label>Hora</label>
+            <input type="time">
+
+            <button type="submit" class="btn-primary reserve-btn">
+                Reserva Cita
+            </button>
+        </form>
+
+    </main>
+
+    <footer id="footer">
+        © 2025 Beauty Code – Agenda de Manicura
+        <br> Desarrollado por Iron Code
+    </footer>
+    
+</body>
+</html>

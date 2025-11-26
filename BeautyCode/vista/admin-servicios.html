@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Panel Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+    <header>
+        <nav id="menu-admin">
+            <div>
+                <img src="img/logo con delineado.png" class="logo">
+            </div>
+
+            <div>
+                <a href="dashboard-admin.html">
+                    <img src="img/iconos/juego-tablero-alt.png" style="width:15px; padding-right:7px">Dashboard</a>
+                <a href="admin-servicios.html">
+                    <img src="img/iconos/bolsas-de-compras.png" style="width:20px; padding-right:7px">Servicios</a>
+                <a href="admin-galeria.html">
+                    <img src="img/iconos/copiar-imagen.png" style="width:20px; padding-right:7px">Galería</a>
+                <a href="admin-empleados.html">
+                    <img src="img/iconos/empleados-mujer-hombre.png" style="width:19px; padding-right:7px">Empleados</a>
+                <a href="admin-disponibilidad.html">
+                    <img src="img/iconos/chequeo-de-tiempo.png" style="width:18px; padding-right: 7px;">Disponibilidad</a>
+                <a href="admin-citas.html">
+                    <img src="img/iconos/dia-del-calendario.png" style="width:17px; padding-right:7px">Citas</a>
+            </div>
+
+            <a href="login.html">
+                <button class="boton-citas">Cerrar Sesión</button>
+            </a>
+        </nav>
+    </header>
+
+    <main class="admin-container">
+
+        <h1 class="dashboard-title">Gestión de Servicios</h1>
+        <p class="dashboard-subtitle">Agrega, edita o elimina servicios del catálogo</p>
+
+        <section class="admin-card">
+            <h2>Agregar Nuevo Servicio</h2>
+
+            <form id="serviceForm" class="service-form">
+
+                <div class="fila">
+                    <div class="campo">
+                <label>Nombre del servicio</label>
+                <input type="text" id="serviceName" required placeholder="Ej: Manicure con gel">
+                    </div>
+                    <div class="campo">
+                <label>Precio</label>
+                <input type="number" id="servicePrice" required placeholder="Ej: 45000">
+                    </div>
+                </div>
+
+                <label>Descripción</label>
+                <textarea id="serviceDesc" required placeholder="Descripción del servicio"></textarea>
+
+                <label>Imagen del servicio</label>
+                <input type="file" id="serviceImage" accept="image/*">
+                <button type="submit" class="btn-primary">Agregar Servicio</button>
+
+            </form>
+        </section>
+
+        <div class="admin-card">
+            <h2>Servicios Registrados</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Servicio</th>
+                        <th>Precio</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="serviceList">
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script src="js/services.js"></script>
+</body>
+</html>

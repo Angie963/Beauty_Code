@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Code - Panel Administrador</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+    <header>
+        <nav id="menu-admin">
+            <div>
+                <img src="img/logo con delineado.png" class="logo">
+            </div>
+
+            <div>
+                <a href="dashboard-admin.html">
+                    <img src="img/iconos/juego-tablero-alt.png" style="width:15px; padding-right:7px">Dashboard</a>
+                <a href="admin-servicios.html">
+                    <img src="img/iconos/bolsas-de-compras.png" style="width:20px; padding-right:7px">Servicios</a>
+                <a href="admin-galeria.html">
+                    <img src="img/iconos/copiar-imagen.png" style="width:20px; padding-right:7px">Galería</a>
+                <a href="admin-empleados.html">
+                    <img src="img/iconos/empleados-mujer-hombre.png" style="width:19px; padding-right:7px">Empleados</a>
+                <a href="admin-disponibilidad.html">
+                    <img src="img/iconos/chequeo-de-tiempo.png" style="width:18px; padding-right: 7px;">Disponibilidad</a>
+                <a href="admin-citas.html">
+                    <img src="img/iconos/dia-del-calendario.png" style="width:17px; padding-right:7px">Citas</a>
+            </div>
+            
+            <a href="login.html">
+                <button class="boton-citas">Cerrar Sesión</button>
+            </a>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <h1>Panel del Administrador</h1>
+        <p class="dashboard-subtitle">Gestiona todos los módulos del sistema</p>
+
+        <div class="dashboard-grid">
+            <a href="admin-servicios.html" class="dash-card">
+                <h2>Servicios</h2>
+                <p>Agregar, editar y borrar servicios</p>
+            </a>
+
+            <a href="admin-galeria.html" class="dash-card">
+                <h2>Galería</h2>
+                <p>Administrar imágenes de trabajos</p>
+            </a>
+
+            <a href="admin-empleados.html" class="dash-card">
+                <h2>Empleados</h2>
+                <p>Registrar y gestionar personal</p>
+            </a>
+
+            <a href="admin-disponibilidad.html" class="dash-card">
+                <h2>Disponibilidad</h2>
+                <p>Definir horarios y días de atención</p>
+            </a>
+
+            <a href="admin-citas.html" class="dash-card">
+                <h2>Citas</h2>
+                <p>Ver, editar y administrar citas agendadas</p>
+            </a>
+
+        </div>
+    </main>
+</body>
+</html>
