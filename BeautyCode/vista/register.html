@@ -9,66 +9,104 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="register-body">
+<body class="login-body register-body">
 
-    <div class="login-card">
+    <div class="container">
+    <div class="login-card register-card mx-auto mt-5 p-4">
 
-        <div class="logo-container">
+        <div class="logo-container text-center mb-4">
             <img src="img/logo.png" alt="Beauty Code" class="login-logo">
         </div>
 
-        <h2 class="login-title">Crear cuenta</h2>
-        <p class="login-subtitle">Regístrate para continuar</p>
+        <h2 class="login-title text-center">Crear cuenta</h2>
+        <p class="login-subtitle text-center">Regístrate para continuar</p>
 
-        <form id="registerForm" class="login-form" action="/registro" method="POST">
+        <form id="registerForm" class="login-form" action="#" method="POST">
 
-            <label for="fullName">Nombre completo</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Ej: María Gómez" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" minlength="3"
+            <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+            <label for="fullName" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Ej: María Gómez" 
+            required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" minlength="3"
             title="Debe contener mínimo 3 letras">
+            </div>
 
-            <label for="doctype">Tipo de documento</label>
-            <select id="doctype" name="doctype" required>
+            <div class="col-12 col-md-6 mb-3">
+            <label for="doctype" class="form-label">Tipo de documento</label>
+            <select class="form-select" id="doctype" name="doctype" required>
                 <option value="">Seleccione...</option>
                 <option value="CC">Cédula de ciudadanía</option>
                 <option value="TI">Tarjeta de identidad</option>
                 <option value="CE">Cédula de extranjería</option>
             </select>
+            </div>
 
-            <label for="document">Número de documento</label>
-            <input type="text" id="document" name="document" placeholder="Ej: 1234567890" 
-            required minlength="7" pattern="[0-9]+">
+            <div class="col-12 col-md-6 mb-3">
+            <label for="document" class="form-label">Número de documento</label>
+            <input type="text" class="form-control" id="document" name="document" placeholder="Ej: 1234567890" 
+            required minlength="7" pattern="[0-9]+" title="Solo se aceptan números">
+            </div>
 
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" placeholder="correo@example.com" required>
+            <div class="col-12 col-md-6 mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="correo@example.com" required>
+            </div>
 
-            <label for="phone">Teléfono</label>
-            <input type="text" id="phone" name="phone" placeholder="Ej: 3124567890" 
-            required minlength="10" pattern="[0-9]+">
+            <div class="col-12 col-md-6 mb-3">
+            <label for="phone" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Ej: 3124567890" 
+            required minlength="10" pattern="[0-9]+" title="Solo se aceptan números">
+            </div>
+            
+            <div class="col-12 col-md-6 mb-3">
+            <label for="username" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Crea tu usuario" 
+            pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s0-9]+" required minlength="3">
+            </div>
 
-            <label for="username">Usuario</label>
-            <input type="text" id="username" name="username" placeholder="Crea tu usuario" 
-            pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
-
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Crea una contraseña" 
+            <div class="col-12 col-md-6 mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Crea una contraseña" 
             minlength="6" required>
+            </div>
 
-            <label for="confirmpassword">Confirmar contraseña</label>
-            <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Repite la contraseña" 
+            <div class="col-12 col-md-6 mb-3">
+            <label for="confirmpassword" class="form-label">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Repite la contraseña" 
             minlength="6" required>
+            <span id="error-password" class="error-password text-danger small"></span>
+            </div>
 
-            <p id="passwordMessage" class="password-message"></p>
-
+            <div class="col-12">
             <input type="hidden" name="rol" value="cliente">
-
-            <button type="submit" class="btn-primary">Registrarme</button>
+            <button type="submit" class="btn-primary w-100">Registrarme</button>
+            </div>
+            </div>
         </form>
 
-        <p class="register-text">
+        <p class="register-text text-center mt-3">
             ¿Ya tienes cuenta?
             <a href="login.html">Inicia sesión</a>
         </p>
         
     </div>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function(event) //Selecciona el formulario y "escucha" el evento del envio 
+        {
+            const password = document.getElementById("password").value;
+            const confirmpassword = document.getElementById("confirmpassword").value;
+            const errorSpan = document.getElementById("error-password");
+
+            if (password !== confirmpassword) {
+                event.preventDefault(); //Hace que no se envie el formulario si no se cumple
+                errorSpan.textContent = "Las contraseñas no coinciden."; //Mensaje de error
+            } else {
+                errorSpan.textContent = ""; //Si coinciden limpia el mensaje y envia el formulario
+            }
+        });
+    </script>
+
 </body>
 </html>

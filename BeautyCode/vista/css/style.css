@@ -55,8 +55,9 @@ body {
 
 .login-form {
     display: flex;
-    flex-direction: column;
     text-align: left;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
     .login-form label {
@@ -66,7 +67,7 @@ body {
     }
 
     .login-form input {
-        width: 93%;
+        width: 100%;
         padding: 12px;
         border-radius: 8px;
         border: 1px solid #ddd;
@@ -75,6 +76,7 @@ body {
         font-family: 'Helvetica', sans-serif;
         background: #fff;
         transition: 0.3s ease;
+        box-sizing: border-box;
     }
 
 /*Oculta en campos numericos las flechas arriba/abajo */
@@ -130,20 +132,21 @@ input[type=number]::-webkit-inner-spin-button
     transition: 0.3s ease;
     color: #727272;
 
-
+/* Agrega la flecha para seleccionar con un diseño especifico */
     background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%236B0C17' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 18px;
 }
 
+.login-form button
+{
+    grid-column: span 2;
+}
+
 /* REGISTRO */
 .register-body {
-    background: linear-gradient(135deg, #6B0C17, #E3C5C2);
-    height: 186vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 140vh;
 }
 
 .register-text {
@@ -157,16 +160,26 @@ input[type=number]::-webkit-inner-spin-button
     font-weight: bold;
 }
 
+.register-card
+{
+    width: 50%;
+}
+ .error-password
+ {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+ }
+
 /* INDEX */
 .index-body 
 {
-    background-color: #E3C5C2; 
-    background: linear-gradient(135deg, #E3C5C2, #fbe6e0);
     font-family: "Helvetica-Condensed", poppins, sans-serif;
     margin: 0;
     padding: 0;
     background-size: cover;
     background-position: center;
+    background-image: url("/BeautyCode/vista/img/flores.jpg");
 }
 
 .header
@@ -557,8 +570,8 @@ nav a:hover
     background: #fff;
     padding: 40px;
     border-radius: 20px;
-    width: 500px;
-    max-width: 480px;
+    width: 80%;
+    max-width: 800px;
     box-shadow: 0 4px 18px rgb(0,0,0,0.25);
 }
 
@@ -572,7 +585,7 @@ nav a:hover
 {
     margin-bottom: 10px;
     padding: 20px 0;
-    padding-bottom: 40px;
+    padding-bottom: 10px;
 }
 
 .btn-error
@@ -581,12 +594,40 @@ nav a:hover
     padding: 12px 25px;
     border-radius: 10px;
     text-decoration: none;
+    width:30%;
+}
+
+.btn-inicio
+{
+    margin-top: 18px;
+    padding: 14px;
+    width: 30%;
+    background-color: #E3C5C2;
+    color: rgba(0, 0, 0, 0.729);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-inicio:hover
+{
+    background: #e9cfcc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(107, 12, 23, 0.35);
+}
+
+.btn-inicio:active
+{
+    transform: scale(0.97);
 }
 
 .error-numero
 {
     display:flex;
-    font-size: 150px;
+    font-size: 120px;
 }
 
 .error-body
@@ -605,8 +646,8 @@ nav a:hover
 .logo-error
 {
     background: #E3C5C2;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     margin: 0 auto 20px;
     display: flex;
@@ -614,7 +655,8 @@ nav a:hover
     justify-content: center;
 }
 
-.pago
+.botones-error
 {
-    color: black;
+    display: flex;
+    gap: 20px;
 }
