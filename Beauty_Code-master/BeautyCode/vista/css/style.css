@@ -118,6 +118,7 @@ input[type=number]::-webkit-inner-spin-button
     font-size: 17px;
     cursor: pointer;
     transition: 0.2s;
+    text-decoration: none;
 }
 
 /* Color cursor sobre botón */
@@ -328,10 +329,10 @@ nav a:hover
 .cita-container {
     width: 70%;
     margin: 120px auto 60px;
-    background: #ffffffc2;
+    background: #fbe6e0;
     padding: 35px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     text-align: center;
 }
 
@@ -389,7 +390,7 @@ nav a:hover
 
 .dashboard-body 
 {
-    background: linear-gradient(135deg, #E3C5C2, #fbe6e0);
+    background: #f8f6f7;
     padding-top: 10px;
 }
 
@@ -416,12 +417,12 @@ nav a:hover
 
 .dash-card
 {
-    background: #fff;
+    background: #f1d4d0;
     padding: 25px;
     border-radius: 15px;
     text-decoration: none;
     color: black;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
     transition: 0.3s;
 }
 
@@ -476,10 +477,10 @@ nav a:hover
 
 .admin-card
 {
-    background: #fff;
+    background: #f1d4d0;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
     margin-bottom: 40px;
 }
 
@@ -678,4 +679,157 @@ nav a:hover
 {
     display: flex;
     gap: 20px;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.service-desc {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.service-price {
+    font-weight: bold;
+    color: #6B0C17;
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+
+.tarjeta-serv
+{
+    width: 90%;
+    height: auto;
+}
+
+.service-img-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.service-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    background: #f1d4d0;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.resumen-citas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.resumen-citas .dash-card {
+    background-color: #f1d4d0;
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
+}
+
+.resumen-citas .dash-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #6B0C17;
+}
+
+.resumen-citas .dash-card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+}
+.profile-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.profile-card {
+    background: #f1d4d0;
+    padding: 35px;
+    border-radius: 20px;
+    width: 75%;
+    margin: 30px auto;
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
+}
+
+.profile-img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.profile-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid #6B0C17;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.profile-form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.dash-card {
+    background: #f1d4d0;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
+    cursor: default;
 }

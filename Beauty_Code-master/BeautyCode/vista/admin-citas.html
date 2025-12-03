@@ -37,12 +37,39 @@
             </a>
         </nav>
     </header>
-    <main class="admin-container">
+<main class="admin-container">
 
-    <h1>Gestión de Citas</h1>
-    <p>Consulta, confirma o cancela reservas.</p>
+    <h1 class="dashboard-title">Gestión de Citas</h1>
+    <p class="dashboard-subtitle">Consulta, confirma o cancela reservas.</p>
 
+    <!-- Tarjetas de resumen -->
+    <div class="dashboard-grid resumen-citas">
+
+        <div class="dash-card citas-total">
+            <h3>Total Citas</h3>
+            <p id="totalCitas">0</p>
+        </div>
+
+        <div class="dash-card citas-prog">
+            <h3>Programadas</h3>
+            <p id="citasProgramadas">0</p>
+        </div>
+
+        <div class="dash-card citas-comp">
+            <h3>Completadas</h3>
+            <p id="citasCompletadas">0</p>
+        </div>
+
+        <div class="dash-card citas-canc">
+            <h3>Canceladas</h3>
+            <p id="citasCanceladas">0</p>
+        </div>
+
+    </div>
+
+    <!-- Tabla de citas -->
     <div class="admin-card">
+        <h2>Citas Registradas</h2>
 
         <table class="table">
             <thead>
@@ -56,12 +83,31 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-
-            <tbody id="appointmentList"></tbody>
+            <tbody id="appointmentList">
+                <!-- Ejemplos -->
+                <tr>
+                    <td>Laura Pérez</td>
+                    <td>Manicura Gel</td>
+                    <td>2025-12-10</td>
+                    <td>10:00 AM</td>
+                    <td>Ana Gómez</td>
+                    <td class="estado-prog">Programada</td>
+                    <td>❌ ✔️</td>
+                </tr>
+                <tr>
+                    <td>María Ruiz</td>
+                    <td>Uñas Acrílicas</td>
+                    <td>2025-12-08</td>
+                    <td>03:00 PM</td>
+                    <td>Sara Diaz</td>
+                    <td class="estado-comp">Completada</td>
+                    <td>✔️</td>
+                </tr>
+            </tbody>
         </table>
-
     </div>
 
 </main>
+
 </body>
 </html>

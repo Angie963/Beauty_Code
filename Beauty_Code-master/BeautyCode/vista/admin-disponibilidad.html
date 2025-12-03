@@ -44,31 +44,49 @@
 
     <section class="admin-card">
 
-        <form class="admin-form" method="POST">
+    <h2>Configurar Horario del Salón</h2>
 
-            <label class="form-label">Empleado</label>
-            <select>
-                <option>Seleccione...</option>
-            </select>
+    <form id="disponibilidadForm" class="admin-form">
 
-            <label class="form-label">Horario</label>
-            <input type="time" class="form-control" required id="horario">
+        <label class="form-label">Día de la semana</label>
+        <select id="diaSemana" class="form-control" required>
+            <option disabled selected>Seleccione...</option>
+            <option>Lunes</option>
+            <option>Martes</option>
+            <option>Miércoles</option>
+            <option>Jueves</option>
+            <option>Viernes</option>
+            <option>Sábado</option>
+        </select>
 
-            <label class="form-label">Día</label>
-            <select>
-                <option>Lunes</option>
-                <option>Martes</option>
-                <option>Miércoles</option>
-                <option>Jueves</option>
-                <option>Viernes</option>
-                <option>Sábado</option>
-            </select>
+        <label class="form-label">Hora de apertura</label>
+        <input type="time" id="horaInicio" class="form-control" required>
 
-            <button class="btn-primary">Guardar Disponibilidad</button>
+        <label class="form-label">Hora de cierre</label>
+        <input type="time" id="horaFin" class="form-control" required>
 
-        </form>
+        <button type="submit" class="btn-primary mt-3">Guardar Disponibilidad</button>
 
-    </section>
+    </form>
+
+</section>
+
+<div class="admin-card">
+    <h2>Horarios Registrados</h2>
+
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>Día</th>
+                <th>Apertura</th>
+                <th>Cierre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="listaDisponibilidad"></tbody>
+    </table>
+</div>
+
 
 </main>
 </body>

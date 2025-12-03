@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empleados - Panel Admin</title>
+    <title>Galeria - Panel Admin</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,6 +37,7 @@
             </a>
         </nav>
     </header>
+    
 <main class="admin-container">
 
     <h1>Gestión de Empleados</h1>
@@ -47,13 +48,16 @@
 
         <form class="admin-form">
             <label class="form-label">Nombre</label>
-            <input type="text" required class="form-control">
+            <input type="text" required class="form-control" minlength="3"
+            pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s0-9]+">
 
             <label class="from label">Teléfono</label>
-            <input type="number" required class="form-control">
+            <input type="text" required class="form-control" minlength="10"
+            pattern="[0-9]+">
 
             <label class="form-label">Especialidad</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" minlength="3"
+            pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s0-9]+">
 
             <button class="btn-primary">Guardar Empleado</button>
         </form>
@@ -77,5 +81,40 @@
     </div>
 
 </main>
+
+<script>
+    const form = document.querySelector(".admin-form");
+    const employeeList = document.getElementById("employeeList");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // evita recargar la página
+
+        const inputs = form.querySelectorAll("input");
+        const nombre = inputs[0].value;
+        const telefono = inputs[1].value;
+        const especialidad = inputs[2].value;
+
+        // Crear fila
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${nombre}</td>
+            <td>${telefono}</td>
+            <td>${especialidad}</td>
+            <td>
+                <button class="btn btn-danger btn-sm eliminar-btn">Eliminar</button>
+            </td>
+        `;
+
+        employeeList.appendChild(row);
+
+        // Evento para eliminar fila
+        row.querySelector(".eliminar-btn").addEventListener("click", () => {
+            row.remove();
+        });
+
+        form.reset();
+    });
+</script>
+
 </body>
 </html>

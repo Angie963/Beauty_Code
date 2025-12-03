@@ -35,7 +35,37 @@
     </nav>
     </header>
 
+<main class="profile-container">
 
+    <h1 class="title text-center" style="margin-top: 90px;">Mi Perfil</h1>
+
+    <section class="profile-card">
+
+        <div class="profile-img-container">
+            <img src="img/iconos/usuario.png" alt="Foto de perfil" class="profile-img" style="padding:10px;">
+            <button class="btn-primary">Cambiar Foto</button>
+        </div>
+
+        <form class="profile-form">
+
+            <label class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" placeholder="Ej: Ana López" required>
+
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" placeholder="Ej: ana@mail.com" required>
+
+            <label class="form-label">Teléfono</label>
+            <input type="text" class="form-control" placeholder="Ej: 3001234567" minlength="10" pattern="[0-9]+" required>
+
+            <label class="form-label">Documento</label>
+            <input type="text" class="form-control" placeholder="Ej: 1023456789" minlength="8" pattern="[0-9]+" required>
+
+            <button type="submit" class="btn-primary w-100">Guardar Cambios</button>
+
+        </form>
+    </section>
+
+</main>
 
     <footer id="footer">
         © 2025 Beauty Code – Agenda de Manicura

@@ -37,6 +37,7 @@
             </a>
         </nav>
     </header>
+    
 <main class="admin-container">
 
     <h1>Gestión de Galería</h1>
@@ -63,4 +64,56 @@
 
 </main>
 </body>
+
+<script>
+// ====== Variables ======
+let imagenes = JSON.parse(localStorage.getItem("galeria")) || [];
+const galleryContainer = document.getElementById("galleryContainer");
+const form = document.querySelector(".admin-form");
+const fileInput = form.querySelector("input[type='file']");
+
+// ====== Mostrar imágenes ======
+function cargarGaleria() {
+    galleryContainer.innerHTML = "";
+
+    imagenes.forEach((img, index) => {
+        galleryContainer.innerHTML += `
+            <div class="gallery-item">
+                <img src="${img}" alt="Diseño uñas">
+                <button class="btn btn-danger btn-sm" onclick="eliminarImagen(${index})">Eliminar</button>
+            </div>
+        `;
+    });
+}
+
+cargarGaleria();
+
+// ====== Guardar imagen ======
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const archivo = fileInput.files[0];
+    if (!archivo) {
+        alert("Por favor selecciona una imagen");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        imagenes.push(reader.result);
+        localStorage.setItem("galeria", JSON.stringify(imagenes));
+        fileInput.value = "";
+        cargarGaleria();
+    };
+    reader.readAsDataURL(archivo);
+});
+
+// ====== Eliminar imagen ======
+function eliminarImagen(index) {
+    imagenes.splice(index, 1);
+    localStorage.setItem("galeria", JSON.stringify(imagenes));
+    cargarGaleria();
+}
+</script>
+
 </html>

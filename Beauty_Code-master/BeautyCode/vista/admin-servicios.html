@@ -50,11 +50,13 @@
                 <div class="fila">
                     <div class="campo">
                 <label class="form-label">Nombre del servicio</label>
-                <input class="form-control" type="text" id="serviceName" required placeholder="Ej: Manicure con gel">
+                <input class="form-control" type="text" id="serviceName" required 
+                placeholder="Ej: Manicure con gel" minlength="3">
                     </div>
                     <div class="campo">
                 <label class="form-label">Precio</label>
-                <input class="form-control" type="number" id="servicePrice" required placeholder="Ej: 45000">
+                <input class="form-control" type="text" id="servicePrice" required 
+                placeholder="Ej: 45000" minlength="3" pattern="[0-9]+">
                     </div>
                 </div>
 
@@ -89,6 +91,98 @@
 
     </main>
 
-    <script src="js/services.js"></script>
+    <script>
+// ====== Variables Globales ======
+let servicios = JSON.parse(localStorage.getItem("servicios")) || [];
+let editIndex = null;
+
+const form = document.getElementById("serviceForm");
+const lista = document.getElementById("serviceList");
+const nombreInput = document.getElementById("serviceName");
+const precioInput = document.getElementById("servicePrice");
+const descInput = document.getElementById("serviceDesc");
+const imgInput = document.getElementById("serviceImage");
+
+// ====== Renderizar Servicios ======
+function cargarServicios() {
+    lista.innerHTML = "";
+
+    servicios.forEach((srv, index) => {
+        lista.innerHTML += `
+            <tr>
+                <td><img src="${srv.img}" width="70"></td>
+                <td>${srv.nombre}</td>
+                <td>$${srv.precio}</td>
+                <td>${srv.desc}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" onclick="editarServicio(${index})">Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarServicio(${index})">Eliminar</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+cargarServicios();
+
+// ====== Crear / Editar Servicio ======
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nombre = nombreInput.value.trim();
+    const precio = precioInput.value.trim();
+    const desc = descInput.value.trim();
+    const file = imgInput.files[0];
+
+    if (!nombre || !precio || !desc) {
+        alert("Todos los campos son requeridos");
+        return;
+    }
+
+    let reader = new FileReader();
+
+    reader.onloadend = () => {
+        const servicioData = {
+            nombre,
+            precio,
+            desc,
+            img: file ? reader.result : (editIndex !== null ? servicios[editIndex].img : "")
+        };
+
+        if (editIndex !== null) {
+            servicios[editIndex] = servicioData;
+            editIndex = null;
+        } else {
+            servicios.push(servicioData);
+        }
+
+        localStorage.setItem("servicios", JSON.stringify(servicios));
+        form.reset();
+        cargarServicios();
+    };
+
+    if (file) reader.readAsDataURL(file);
+    else reader.onloadend();
+});
+
+// ====== Eliminar ======
+function eliminarServicio(i) {
+    servicios.splice(i, 1);
+    localStorage.setItem("servicios", JSON.stringify(servicios));
+    cargarServicios();
+}
+
+// ====== Editar ======
+function editarServicio(i) {
+    const srv = servicios[i];
+
+    nombreInput.value = srv.nombre;
+    precioInput.value = srv.precio;
+    descInput.value = srv.desc;
+
+    editIndex = i;
+}
+</script>
+
 </body>
 </html>
