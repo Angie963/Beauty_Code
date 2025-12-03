@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - Panel Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+    <header>
+        <nav id="menu-admin">
+            <div>
+                <img src="img/logo con delineado.png" class="logo">
+            </div>
+
+            <div>
+                <a href="dashboard-admin.html">
+                    <img src="img/iconos/juego-tablero-alt.png" style="width:20px; padding-right:7px">Dashboard</a>
+                <a href="admin-servicios.html">
+                    <img src="img/iconos/bolsas-de-compras.png" style="width:22px; padding-right:7px">Servicios</a>
+                <a href="admin-galeria.html">
+                    <img src="img/iconos/copiar-imagen.png" style="width:23px; padding-right:7px">Galería</a>
+                <a href="admin-empleados.html">
+                    <img src="img/iconos/empleados-mujer-hombre.png" style="width:23px; padding-right:6px">Empleados</a>
+                <a href="admin-disponibilidad.html">
+                    <img src="img/iconos/chequeo-de-tiempo.png" style="width:23px; padding-right: 7px;">Disponibilidad</a>
+                <a href="admin-citas.html">
+                    <img src="img/iconos/dia-del-calendario.png" style="width:21px; padding-right:7px">Citas</a>
+            </div>
+
+            <a href="login.html">
+                <button class="boton-citas">Cerrar Sesión</button>
+            </a>
+        </nav>
+    </header>
+<main class="admin-container">
+
+    <h1>Gestión de Galería</h1>
+    <p>Sube o elimina fotos del catálogo de diseños.</p>
+
+    <section class="admin-card">
+        <h2>Subir Imagen</h2>
+
+        <form class="admin-form">
+            <label class="form-label">Seleccionar imagen</label>
+            <label class="file-label">
+                <input type="file" accept="image/*">
+            </label>
+
+            <button class="btn-primary">Guardar Imagen</button>
+        </form>
+    </section>
+
+    <div class="admin-card">
+        <h2>Imágenes Registradas</h2>
+
+        <div class="gallery-grid" id="galleryContainer"></div>
+    </div>
+
+</main>
+</body>
+</html>

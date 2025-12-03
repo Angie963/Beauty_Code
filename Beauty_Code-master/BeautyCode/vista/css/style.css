@@ -1,0 +1,662 @@
+/* Importar tipografia principal */
+@font-face {
+    font-family: "Helvetica-Condensed";
+    src: url("../fonts/helvetica.otf") format("opentype");
+}
+
+body {
+    margin: 0;
+    font-family: "Helvetica-Condensed", Poppins, sans-serif;
+}
+
+/* LOGIN */
+/* Fondo elegante */
+.login-body {
+    background: linear-gradient(135deg, #6B0C17, #E3C5C2);
+    height: 105vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Fondo formulario */
+.login-card {
+    background: #fbe6e0;
+    width: 380px;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-logo {
+    width: 110px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+/* Textos */
+.login-title {
+    font-size: 28px;
+    color: #6B0C17;
+    margin-bottom: 5px;
+}
+
+.login-subtitle {
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.login-form {
+    display: flex;
+    text-align: left;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .login-form label {
+        margin: 8px 0 4px;
+        font-weight: bold;
+        color: #6B0C17;
+    }
+
+    .login-form input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        font-size: 15px;
+        font-family: 'Helvetica', sans-serif;
+        background: #fff;
+        transition: 0.3s ease;
+        box-sizing: border-box;
+    }
+
+/*Oculta en campos numericos las flechas arriba/abajo */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-inner-spin-button
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Boton */
+.btn-primary {
+    margin-top: 18px;
+    padding: 14px;
+    width: 100%;
+    background-color: #6B0C17;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Color cursor sobre botón */
+.btn-primary:hover
+{
+    background: #8B1020;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(107, 12, 23, 0.35);
+}
+
+.btn-primary:active
+{
+    transform: scale(0.97);
+}
+
+.login-form select
+{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-family: 'Helvetica', sans-serif;
+    background: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #727272;
+
+/* Agrega la flecha para seleccionar con un diseño especifico */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%236B0C17' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+}
+
+.login-form button
+{
+    grid-column: span 2;
+}
+
+/* REGISTRO */
+.register-body {
+    height: 140vh;
+}
+
+.register-text {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-text a 
+{
+    color: #6B0C17;
+    font-weight: bold;
+}
+
+.register-card
+{
+    width: 50%;
+}
+ .error-password
+ {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+ }
+
+/* INDEX */
+.index-body 
+{
+    font-family: "Helvetica-Condensed", poppins, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    background-image: url("/BeautyCode/vista/img/flores.jpg");
+}
+
+.header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6B0C17;
+    padding: 15px, 30px;
+    color: white;
+}
+
+nav a
+{
+    color: white;
+    margin: 0 31px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+nav a:hover
+{
+    text-decoration: underline;
+}
+
+.container
+{
+    width: 85%;
+    margin: 40px auto;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.card
+{
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+    margin: 25px auto;
+    width: 65%;
+}
+
+.card h2
+{
+    color: #6B0C17;
+}
+
+.card button
+{
+    background: #6B0C17;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 16px;
+    transition: 0.25s ease-in-out;
+}
+
+.card button:hover
+{
+    background: #8B1020;
+    transition: 0.25 scale(1.05);
+}
+
+/* "Pie de pagina" */
+#footer
+{
+    margin-top: 45px;
+    background-color: #6B0C17;
+    color: white;
+    text-align: center;
+    padding: 18px;
+}
+
+#menu
+{
+    background-color: #4b0911;
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    top: 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 40px;
+    gap: 180px;
+    z-index: 1000;
+}
+
+.logo
+{
+    width: 60px;
+    height: auto;
+    padding-top: 10px;
+}
+
+.boton-citas {
+    padding: 10px;
+    margin-right: 45px;
+    width: 90%;
+    background-color: #48080f;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.436);
+    border-radius: 100px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.boton-citas:hover
+{
+    background: #8B1020;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(107, 12, 23, 0.35);
+}
+
+.boton-citas:active
+{
+    transform: scale(0.97);
+}
+
+.cita-container {
+    width: 70%;
+    margin: 120px auto 60px;
+    background: #ffffffc2;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.cita-container .title {
+    color: #6B0C17;
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.cita-container .subtitle {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.cita-form {
+    width: 80%;
+    margin: auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.cita-form label {
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #6B0C17;
+}
+
+.cita-form select,
+.cita-form input {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    background: #fff;
+    font-size: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #727272;
+    border: 1px solid #ddd;
+    font-family: 'Helvetica', sans-serif;
+    transition: 0.3s ease;
+
+}
+
+.reserve-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.dashboard-body 
+{
+    background: linear-gradient(135deg, #E3C5C2, #fbe6e0);
+    padding-top: 10px;
+}
+
+.dashboard-container
+{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-top: 8%;
+}
+
+.dashboard-subtitle
+{
+    color: #444;
+    margin-bottom: 30px;
+}
+
+.dashboard-grid
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.dash-card
+{
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: black;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.dash-card:hover
+{
+    transform: scale(1.04);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.dash-card h2
+{
+    color: #6B0C17;
+}
+
+#menu-admin
+{
+    background-color: #4b0911;
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    top: 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 40px;
+    gap: 111px;
+    z-index: 1000;
+}
+
+#menu-admin-s
+{
+    background-color: #4b0911;
+    position: fixed;
+    height: 90px;
+    width: 100%;
+    top: 0;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 40px;
+    gap: 107px;
+    z-index: 1000;
+}
+
+.admin-container
+{
+    width: 85%;
+    margin: 130px auto 60px;
+}
+
+.admin-card
+{
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
+}
+
+.service-form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.service-form label
+{
+    font-weight: bold;
+    color: #6B0C17;
+    display: block;
+    margin-top: 15px;
+}
+
+.service-form input,
+.service-form textarea
+{
+    width: 96%;
+    padding: 12px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    background: #fff;
+}
+
+.service-form button
+{
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+}
+
+.table
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th,
+.table td
+{
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table img
+{
+    width: 70px;
+    border-radius: 8px;
+}
+
+.action-btn
+{
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.edit-btn
+{
+    background: #ffc107;
+}
+
+.delete-btn
+{
+    background: #dc3545;
+    color: #fff;
+}
+
+.fila
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 10px;
+    padding-right: 20px;
+}
+
+.campo label
+{
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #6B0C17;
+}
+
+.campo input,
+.campo textarea,
+.campo select
+{
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    background: #fff;
+}
+
+.error-container
+{
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 18px rgb(0,0,0,0.25);
+}
+
+.error-img
+{
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+.error
+{
+    margin-bottom: 10px;
+    padding: 20px 0;
+    padding-bottom: 10px;
+}
+
+.btn-error
+{
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    width:30%;
+}
+
+.btn-inicio
+{
+    margin-top: 18px;
+    padding: 14px;
+    width: 30%;
+    background-color: #E3C5C2;
+    color: rgba(0, 0, 0, 0.729);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-inicio:hover
+{
+    background: #e9cfcc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(107, 12, 23, 0.35);
+}
+
+.btn-inicio:active
+{
+    transform: scale(0.97);
+}
+
+.error-numero
+{
+    display:flex;
+    font-size: 120px;
+}
+
+.error-body
+{
+    background: #E3C5C2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family:'Helvetica-Condensed', poppins, sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo-error
+{
+    background: #E3C5C2;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botones-error
+{
+    display: flex;
+    gap: 20px;
+}
