@@ -87,6 +87,24 @@ input[type=number]::-webkit-inner-spin-button
     margin: 0;
 }
 
+.olvido-contraseña {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.olvido-contraseña a {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    transition: 0.25s;
+}
+
+.olvido-contraseña a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
 /* Boton */
 .btn-primary {
     margin-top: 18px;
@@ -141,12 +159,13 @@ input[type=number]::-webkit-inner-spin-button
 
 .login-form button
 {
-    grid-column: span 2;
+    grid-column: span 2; /* Dos columnas */
 }
 
 /* REGISTRO */
 .register-body {
-    height: 140vh;
+    margin-top: 30px;
+    margin-bottom: 150px;
 }
 
 .register-text {
@@ -179,7 +198,7 @@ input[type=number]::-webkit-inner-spin-button
     padding: 0;
     background-size: cover;
     background-position: center;
-    background-image: url("/BeautyCode/vista/img/flores.jpg");
+    background-color: #f8f6f7;
 }
 
 .header
@@ -215,22 +234,22 @@ nav a:hover
     padding-top: 70px;
 }
 
-.card
+.tarjeta
 {
-    background-color: #ffffff;
+    background-color: #f1d4d0;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0px 8px 25px rgba(150, 0, 30, 0.10);
     margin: 25px auto;
     width: 65%;
 }
 
-.card h2
+.tarjeta h2
 {
     color: #6B0C17;
 }
 
-.card button
+.tarjeta button
 {
     background: #6B0C17;
     color: white;
@@ -243,7 +262,7 @@ nav a:hover
     transition: 0.25s ease-in-out;
 }
 
-.card button:hover
+.tarjeta button:hover
 {
     background: #8B1020;
     transition: 0.25 scale(1.05);
