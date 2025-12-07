@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ega8QCSjkFo=",
+  "dgSpecHash": "SP0S2fEgkhQ=",
   "success": true,
-  "projectFilePath": "D:\\BEAUTYCODE\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\BeautyCode\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",

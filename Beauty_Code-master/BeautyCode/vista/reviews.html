@@ -11,31 +11,25 @@
 
 <body class="index-body">
 
-    <header>
+<header>
     <nav id="menu">
         <div>
             <img src="img/logo con delineado.png" alt="Logo Beauty Code", class="logo">
         </div>
         
         <div>
-            <a href="index.html">
-                <img src="img/iconos/chimenea-de-la-casa.png" style="width:20px;padding-right:7px">Inicio</a>
-            <a href="services.html">
-                <img src="img/iconos/bolsas-de-compras.png" style="width:22px;padding-right:7px">Servicios</a>
-            <a href="gallery.html">
-                <img src="img/iconos/copiar-imagen.png" style="width:23px;padding-right:7px">Galería</a>
-            <a href="reviews.html">
-                <img src="img/iconos/revision-de-comentarios.png" style="width:23px;padding-right:7px">Reseñas</a>
-            <a href="appointments.html">
-                <img src="img/iconos/dia-del-calendario.png" style="width:20px;padding-right:7px">Citas</a>
-            <a href="perfil.html">
-                <img src="img/iconos/lapiz-de-usuario.png" style="width:21px;padding-right:7px">Perfil</a>
+            <a href="index.html"><img src="img/iconos/chimenea-de-la-casa.png" style="width:20px;padding-right:7px">Inicio</a>
+            <a href="services.html"><img src="img/iconos/bolsas-de-compras.png" style="width:22px;padding-right:7px">Servicios</a>
+            <a href="gallery.html"><img src="img/iconos/copiar-imagen.png" style="width:23px;padding-right:7px">Galería</a>
+            <a href="reviews.html"><img src="img/iconos/revision-de-comentarios.png" style="width:23px;padding-right:7px">Reseñas</a>
+            <a href="appointments.html"><img src="img/iconos/dia-del-calendario.png" style="width:20px;padding-right:7px">Citas</a>
+            <a href="perfil.html"><img src="img/iconos/lapiz-de-usuario.png" style="width:21px;padding-right:7px">Perfil</a>
             <a href="login.html">Iniciar Sesión</a>
         </div>
     </nav>
-    </header>
+</header>
 
-    <!--reseñas-->
+<!-- CONTENEDOR PRINCIPAL -->
 <div class="reviews-container" style="width:80%;margin:40px auto;">
 
     <h1 style="color: #6B0C17;font-size:32px;margin-bottom:10px;padding-top:80px;">
@@ -46,65 +40,69 @@
         Opiniones de nuestros clientes sobre los servicios realizados.
     </p>
 
-    <!-- boton para agregar reseñas-->
+    <!-- Botón para abrir formulario -->
     <div style="margin-bottom:30px;">
-        <a href="#" class="btn-primary">
-            ✍ Escribir Reseña
-        </a>
-    </div>
-    <!-- reseñas fictisias -->
-    <!-- reseña 1-->
-    <div style="
-        background:#f1d4d0;
-        padding:20px;
-        border-radius:15px;
-        margin-bottom:20px;
-        box-shadow:0px 8px 25px rgba(150, 0, 30, 0.10);
-    ">
-    <div style="display:flex;justify-content:space-between;">
-            <strong style="font-size:18px;">María Gómez</strong>
-            <span style="color:gold;font-size:22px;text-shadow:1px 1px 10px rgba(0, 0, 0, 0.733)">★★★★★</span>
-        </div>
-        <p style="color:#777;margin:5px 0;">Servicio: Manicure Tradicional</p>
-        <p>Excelente trabajo, muy detallado y profesional. 100% recomendado.</p>
+        <button id="btnAbrirResena" class="btn-primary btn-error">
+            Escribir Reseña
+        </button>
     </div>
 
-    <!-- reseña 2-->
-    <div style="
-        background:#f1d4d0;
-        padding:20px;
-        border-radius:15px;
-        margin-bottom:20px;
-        box-shadow:0px 8px 25px rgba(150, 0, 30, 0.10);
-    ">
-    <div style="display:flex;justify-content:space-between;">
-            <strong style="font-size:18px;">Valentina Ruiz</strong>
-            <span style="color:gold;font-size:22px;text-shadow:1px 1px 10px rgba(0, 0, 0, 0.733)">★★★★☆</span>
-        </div>
-        <p style="color:#777;margin:5px 0;">Servicio: Uñas Acrílicas</p>
-        <p>Me encantó el diseño, aunque tardó un poco más de lo esperado.</p>
-    </div>
-
-    <!-- reseña 3-->
-    <div style="
-        background:#f1d4d0;
-        padding:20px;
-        border-radius:15px;
-        margin-bottom:20px;
-        box-shadow:0px 8px 25px rgba(150, 0, 30, 0.10);
-    ">
-    <div style="display:flex;justify-content:space-between;">
-            <strong style="font-size:18px;">Camila Ortega</strong>
-            <span style="color:gold;font-size:22px;text-shadow:1px 1px 10px rgba(0, 0, 0, 0.733)">★★★★★</span>
-        </div>
-        <p style="color:#777;margin:5px 0;">Servicio: Pedicure Spa</p>
-        <p>Un servicio súper relajante, quedé encantada con el resultado.</p>
-    </div>
+    <!-- Contenedor donde JS insertará reseñas -->
+    <div id="reviewsList"></div>
 </div>
 
-    <footer id="footer">
-        © 2025 Beauty Code – Agenda de Manicura
-        <br> Desarrollado por Iron Code
-    </footer>
+<!-- MODAL PARA CREAR RESEÑA -->
+<div id="modalResena" class="modal" style="
+    display:none; 
+    position:fixed; 
+    top:0; left:0; 
+    width:100%; height:100%; 
+    background:rgba(0,0,0,0.5);
+    justify-content:center; 
+    align-items:center;
+">
+    <div style="
+        background:#fff; 
+        padding:25px; 
+        border-radius:15px; 
+        width:350px;
+    ">
+    
+        <h3 style="margin-bottom:15px;">Nueva Reseña</h3>
+
+        <form class="login-form" action="#">
+        <label>Tu nombre</label>
+        <input id="inputNombre" class="form-control" type="text">
+
+        <label class="mt-3">Servicio</label>
+        <input id="inputServicio" class="form-control" type="text">
+
+        <label class="mt-3">Calificación</label>
+        <select id="inputRating" class="form-control">
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★☆</option>
+            <option value="3">★★★☆☆</option>
+            <option value="2">★★☆☆☆</option>
+            <option value="1">★☆☆☆☆</option>
+        </select>
+
+        <label class="mt-3">Comentario</label>
+        <textarea id="inputComentario" class="form-control"></textarea>
+        </form>
+
+        <div style="margin-top:15px; display:flex; justify-content:space-between;">
+            <button id="btnCancelar" class="btn-inicio btn-error w-100" style="margin: 10px;">Cancelar</button>
+            <button id="btnGuardarResena" class="btn-primary w-100" style="margin: 10px;">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<footer id="footer">
+    © 2025 Beauty Code – Agenda de Manicura
+    <br> Desarrollado por Iron Code
+</footer>
+
+<script src="js/reviews.js"></script>
+
 </body>
 </html>

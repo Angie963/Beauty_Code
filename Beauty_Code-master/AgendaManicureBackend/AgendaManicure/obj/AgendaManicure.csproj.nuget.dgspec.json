@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BEAUTYCODE\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj": {}
+    "C:\\Users\\Lenovo\\Desktop\\BeautyCode\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj": {}
   },
   "projects": {
-    "D:\\BEAUTYCODE\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj": {
+    "C:\\Users\\Lenovo\\Desktop\\BeautyCode\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BEAUTYCODE\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\BeautyCode\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj",
         "projectName": "AgendaManicure",
-        "projectPath": "D:\\BEAUTYCODE\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj",
+        "projectPath": "C:\\Users\\Lenovo\\Desktop\\BeautyCode\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\AgendaManicure.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "D:\\BEAUTYCODE\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\obj\\",
+        "outputPath": "C:\\Users\\Lenovo\\Desktop\\BeautyCode\\Beauty_Code-master\\AgendaManicureBackend\\AgendaManicure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

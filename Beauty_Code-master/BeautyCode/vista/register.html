@@ -35,22 +35,22 @@
             <label for="doctype" class="form-label">Tipo de documento</label>
             <select class="form-select" id="doctype" name="doctype" required>
                 <option value="">Seleccione...</option>
-                <option value="CC">Cédula de ciudadanía</option>
-                <option value="TI">Tarjeta de identidad</option>
-                <option value="CE">Cédula de extranjería</option>
+                <option value="CC">Cédula de ciudadanía (C.C)</option>
+                <option value="TI">Tarjeta de identidad (T.I)</option>
+                <option value="CE">Cédula de extranjería (C.E)</option>
             </select>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
             <label for="document" class="form-label">Número de documento</label>
             <input type="text" class="form-control" id="document" name="document" placeholder="Ej: 1234567890" 
-            required minlength="7" pattern="[0-9]+" title="Solo se aceptan números">
+            required minlength="6" pattern="[0-9]+" title="Solo se aceptan números">
             </div>
 
             <div class="col-12 col-md-6 mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="correo@example.com" 
-            required>
+            required pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$">
             </div>
 
             <div class="col-12 col-md-6 mb-3">
@@ -68,13 +68,13 @@
             <div class="col-12 col-md-6 mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Crea una contraseña" 
-            minlength="6" required>
+            minlength="8" required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">
             <label for="confirmpassword" class="form-label">Confirmar contraseña</label>
             <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Repite la contraseña" 
-            minlength="6" required>
+            minlength="8" required>
             <span id="error-password" class="error-password text-danger small"></span>
             </div>
 
@@ -93,21 +93,7 @@
     </div>
     </div>
 
-    <script>
-        document.getElementById("registerForm").addEventListener("submit", function(event) //Selecciona el formulario y "escucha" el evento del envio 
-        {
-            const password = document.getElementById("password").value;
-            const confirmpassword = document.getElementById("confirmpassword").value;
-            const errorSpan = document.getElementById("error-password");
-
-            if (password !== confirmpassword) {
-                event.preventDefault(); //Hace que no se envie el formulario si no se cumple
-                errorSpan.textContent = "Las contraseñas no coinciden."; //Mensaje de error
-            } else {
-                errorSpan.textContent = ""; //Si coinciden limpia el mensaje y envia el formulario
-            }
-        });
-    </script>
+    <script src="js/register.js"></script>
 
 </body>
 </html>
