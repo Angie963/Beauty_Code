@@ -30,15 +30,15 @@
     <!-- Tarjetas resumen -->
     <div class="dashboard-grid">
         <div class="dash-card">
-            <h2>5</h2>
+            <h2 id="pendientes">0</h2>
             <p>Citas Pendientes</p>
         </div>
         <div class="dash-card">
-            <h2>2</h2>
+            <h2 id="completadas">0</h2>
             <p>Completadas Hoy</p>
         </div>
         <div class="dash-card">
-            <h2>1</h2>
+            <h2 id="canceladas">0</h2>
             <p>Canceladas</p>
         </div>
     </div>
@@ -59,41 +59,8 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                    <td>Laura Pérez</td>
-                    <td>Manicura en Gel</td>
-                    <td>10/12/2025</td>
-                    <td>11:00 AM</td>
-                    <td><span class="badge bg-warning">Pendiente</span></td>
-                    <td>
-                        <button class="btn-success btn-sm">Completada</button>
-                        <button class="btn-danger btn-sm">Cancelar</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Sofía Ríos</td>
-                    <td>Uñas Acrílicas</td>
-                    <td>10/12/2025</td>
-                    <td>01:00 PM</td>
-                    <td><span class="badge bg-warning">Pendiente</span></td>
-                    <td>
-                        <button class="btn-success btn-sm">Completada</button>
-                        <button class="btn-danger btn-sm">Cancelar</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>María Gómez</td>
-                    <td>Semipermanente</td>
-                    <td>10/12/2025</td>
-                    <td>03:30 PM</td>
-                    <td><span class="badge bg-success">Completada</span></td>
-                    <td>
-                        <button class="btn-secondary btn-sm" disabled>✔</button>
-                    </td>
-                </tr>
+            <tbody id="tablaCitas">
+                <!-- JS insertará las citas -->
             </tbody>
         </table>
 
@@ -101,10 +68,32 @@
 
 </main>
 
+<!-- MODAL REAGENDAR -->
+<div id="modalReagendar" class="modal" style="
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:white; padding:20px; width:350px; border-radius:15px;">
+        <h4>Reagendar Cita</h4>
+
+        <label>Nueva fecha</label>
+        <input type="date" id="nuevaFecha" class="form-control">
+
+        <label class="mt-2">Nueva hora</label>
+        <input type="time" id="nuevaHora" class="form-control">
+
+        <div class="d-flex justify-content-between mt-3">
+            <button class="btn-inicio btn-error w-100" style="margin: 10px" onclick="cerrarModal()">Cancelar</button>
+            <button class="btn-primary w-100" style="margin: 10px;" onclick="guardarCambio()">Guardar</button>
+        </div>
+    </div>
+</div>
+
 <footer id="footer">
     © 2025 Beauty Code – Agenda de Manicura
     <br> Desarrollado por Iron Code
 </footer>
+
+<script src="js/dashboard-empleado.js"></script>
 
 </body>
 </html>

@@ -873,15 +873,6 @@ nav a:hover
     padding: 20px;
 }
 
-.step-card {
-    max-width: 600px;
-    margin: auto;
-}
-
-.step {
-    animation: fade .3s ease-in-out;
-}
-
 @keyframes fade {
     from {opacity: 0;}
     to {opacity: 1;}

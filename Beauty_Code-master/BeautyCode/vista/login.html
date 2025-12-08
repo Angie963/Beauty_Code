@@ -31,7 +31,7 @@
             <label class="form-label" for="password" class="form-label">Contraseña</label>
             <input class="from-control" type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" 
             required
-            minlength="6" title="Debe contener minimo 6 caracteres">
+            minlength="8" title="Debe contener minimo 6 caracteres">
 
             <div class="olvido-contraseña text-end w-100">
                 <a href="olvido-contraseña.html">¿Olvidaste tu contraseña?</a>
@@ -47,29 +47,7 @@
     </div>
     </div>
 
-    <script>
-const usuarios = [
-    { usuario: "admin", password: "admin123", rol: "admin", pagina: "dashboard-admin.html" },
-    { usuario: "empleado", password: "empleado123", rol: "empleado", pagina: "dashboard-empleado.html" },
-    { usuario: "cliente", password: "cliente123", rol: "cliente", pagina: "index.html" }
-];
-
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    let user = document.getElementById("username").value.trim();
-    let pass = document.getElementById("password").value.trim();
-
-    let encontrado = usuarios.find(u => u.usuario === user && u.password === pass);
-
-    if (encontrado) {
-        alert("Inicio de sesión exitoso como " + encontrado.rol);
-        window.location.href = encontrado.pagina;
-    } else {
-        alert("Usuario o contraseña incorrectos");
-    }
-});
-</script>
+<script src="js/login.js"></script>
 
 </body>
 </html>

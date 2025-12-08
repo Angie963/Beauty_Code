@@ -40,55 +40,51 @@
     <h1 class="title">Agendar una Cita</h1>
     <p class="subtitle">Selecciona el servicio, especialista, fecha y hora.</p>
 
-    <div class="tarjeta step-card" id="stepCard">
-
-        <!-- Paso 1 - Seleccionar servicio -->
-        <div class="step" id="step1">
+        <!-- Seleccionar servicio -->
+        <div id="paso1">
             <h3>Paso 1: Selecciona un servicio</h3>
             <select id="servicioSelect" class="form-control" required>
                 <option value="">Seleccione...</option>
             </select>
-            <button class="btn-primary mt-3" onclick="nextStep(1)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" onclick="nextStep(1)">Siguiente</button>
         </div>
 
-        <!-- Paso 2 - Seleccionar manicurista -->
-        <div class="step d-none" id="step2">
+        <!-- Seleccionar manicurista -->
+        <div id="paso2">
             <h3>Paso 2: Selecciona a tu manicurista</h3>
             <select id="empleadoSelect" class="form-control" required>
                 <option value="">Seleccione...</option>
             </select>
-            <button class="btn-primary mt-3" onclick="nextStep(2)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" onclick="nextStep(2)">Siguiente</button>
         </div>
 
-        <!-- Paso 3 - Fecha -->
-        <div class="step d-none" id="step3">
+        <!-- Fecha -->
+        <div id="paso3">
             <h3>Paso 3: Selecciona una fecha</h3>
             <input id="fechaInput" type="date" class="form-control" required>
-            <button class="btn-primary mt-3" onclick="nextStep(3)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" onclick="nextStep(3)">Siguiente</button>
         </div>
 
-        <!-- Paso 4 - Hora -->
-        <div class="step d-none" id="step4">
+        <!-- Hora -->
+        <div id="paso4">
             <h3>Paso 4: Selecciona una hora disponible</h3>
             <input id="horaInput" type="time" class="form-control" required>
-            <button class="btn-primary mt-3" onclick="nextStep(4)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" onclick="nextStep(4)">Siguiente</button>
         </div>
 
-        <!-- Paso 5 - Subir comprobante -->
-        <div class="step d-none" id="step5">
+        <!-- Subir comprobante -->
+        <div id="paso5">
             <h3>Paso 5: Subir comprobante (10% del valor)</h3>
             <input type="file" id="comprobante" accept="image/*" class="form-control" required>
-            <button class="btn-primary mt-3" onclick="nextStep(5)">Finalizar</button>
+            <button class="btn-primary btn-error mt-3" onclick="nextStep(5)">Finalizar</button>
         </div>
 
-        <!-- Paso Final - Resumen -->
-        <div class="step d-none" id="step6">
+        <!-- Resumen -->
+        <div id="paso6">
             <h3>Resumen de la Cita</h3>
             <p id="resumenCita"></p>
-            <button class="btn-primary" onclick="guardarCita()">Confirmar Cita</button>
+            <button class="btn-primary btn-error" onclick="guardarCita()">Confirmar Cita</button>
         </div>
-
-    </div>
 
     <!-- Citas registradas -->
     <div class="tarjeta mt-4">
@@ -116,5 +112,6 @@
         <br> Desarrollado por Iron Code
     </footer>
     
+    <script src="js/appointments.js"></script>
 </body>
 </html>
