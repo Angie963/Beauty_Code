@@ -46,48 +46,67 @@
             <select id="servicioSelect" class="form-control" required>
                 <option value="">Seleccione...</option>
             </select>
-            <button class="btn-primary btn-error mt-3" onclick="nextStep(1)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" 
+            onclick="nextStep(1)" style="margin-bottom: 35px;">Siguiente</button>
         </div>
 
         <!-- Seleccionar manicurista -->
-        <div id="paso2">
+        <div id="paso2" class="d-none">
             <h3>Paso 2: Selecciona a tu manicurista</h3>
             <select id="empleadoSelect" class="form-control" required>
                 <option value="">Seleccione...</option>
             </select>
-            <button class="btn-primary btn-error mt-3" onclick="nextStep(2)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" 
+            onclick="nextStep(2)" style="margin-bottom: 35px;">Siguiente</button>
         </div>
 
         <!-- Fecha -->
-        <div id="paso3">
+        <div id="paso3" class="d-none">
             <h3>Paso 3: Selecciona una fecha</h3>
             <input id="fechaInput" type="date" class="form-control" required>
-            <button class="btn-primary btn-error mt-3" onclick="nextStep(3)">Siguiente</button>
+            <button class="btn-primary btn-error mt-3" 
+            onclick="nextStep(3)" style="margin-bottom: 35px;">Siguiente</button>
         </div>
 
         <!-- Hora -->
-        <div id="paso4">
+        <div id="paso4" class="d-none">
             <h3>Paso 4: Selecciona una hora disponible</h3>
-            <input id="horaInput" type="time" class="form-control" required>
-            <button class="btn-primary btn-error mt-3" onclick="nextStep(4)">Siguiente</button>
+            <input type="time" id="horaInput" class="form-control"
+            step="3600" min="09:00" max="17.00" required>
+            <button class="btn-primary btn-error mt-3" 
+            onclick="nextStep(4)" style="margin-bottom: 35px;">Siguiente</button>
+        </div>
+
+        <!-- Resumen cita -->
+        <div id="paso5" class="d-none">
+            <h3>Resumen de tu cita</h3>
+            <div id="resumenBox" class="tarjeta" style="background:#fff; padding:15px; border-radius:12px;">
+                <!--Js llena esto-->
+            </div>
+            <button class="btn-primary btn-error mt-03" 
+            onclick="nextStep(5)" style="margin-bottom: 35px;">Continuar</button>
         </div>
 
         <!-- Subir comprobante -->
-        <div id="paso5">
+        <div id="paso6" class="d-none">
             <h3>Paso 5: Subir comprobante (10% del valor)</h3>
             <input type="file" id="comprobante" accept="image/*" class="form-control" required>
-            <button class="btn-primary btn-error mt-3" onclick="nextStep(5)">Finalizar</button>
+            <button class="btn-primary btn-error mt-3" 
+            onclick="nextStep(6)" style="margin-bottom: 35px;">Finalizar</button>
         </div>
 
-        <!-- Resumen -->
-        <div id="paso6">
-            <h3>Resumen de la Cita</h3>
-            <p id="resumenCita"></p>
-            <button class="btn-primary btn-error" onclick="guardarCita()">Confirmar Cita</button>
+        <!-- Finalizar -->
+        <div id="paso7" class="d-none">
+            <h3>Confirmar</h3>
+            <div id="resumenFinal" class="tarjeta" style="background:#fff; padding:15px; border-radius:12px;">
+                <!-- JS llena esto -->
+            </div>
+            
+            <button class="btn-primary btn-error mt-3" onclick="guardarCita()">Confirmar Cita</button>
         </div>
 
     <!-- Citas registradas -->
-    <div class="tarjeta mt-4">
+    <div class="tarjeta mt-4" style="background-color: #fff;">
         <h3>Mis Citas Registradas</h3>
 
         <table class="table text-center">

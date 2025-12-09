@@ -54,7 +54,7 @@ function mostrarResenas() {
         card.innerHTML = `
             <div style="display:flex;justify-content:space-between;">
                 <strong style="font-size:18px;">${r.nombre}</strong>
-                <span style="color:gold;font-size:22px;">${estrellas}</span>
+                <span style="color:#F07A4B; padding-right:20px; font-size:22px;">${estrellas}</span>
             </div>
             <p style="color:#777;margin:5px 0;">Servicio: ${r.servicio}</p>
             <p>${r.comentario}</p>
