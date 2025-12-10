@@ -1,61 +1,58 @@
 using MongoDB.Driver;
 using AgendaManicure.Models;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AgendaManicure.Services
 {
     public class CategoriaService
     {
-        private readonly IMongoCollection<Categoria> _categoriasCollection;
+        private readonly IMongoCollection<Categoria> _categorias;
 
-        public CategoriaService(IOptions<MongoDBSettings> mongoSettings)
+        public CategoriaService(IOptions<MongoDBSettings> opts)
         {
-            // Crear el cliente
-            var client = new MongoClient(mongoSettings.Value.ConnectionString);
-            var db = client.GetDatabase(mongoSettings.Value.DatabaseName);
+            var client = new MongoClient(opts.Value.ConnectionString);
+            var db = client.GetDatabase(opts.Value.DatabaseName);
+            var collectionName = opts.Value.Collections.Categorias ?? "Categorias";
+            _categorias = db.GetCollection<Categoria>(collectionName);
 
-            // Obtener el nombre de la colección si está definido en appsettings.json
-            var collectionName = mongoSettings.Value.Collections?.Categorias ?? "categorias";
-            _categoriasCollection = db.GetCollection<Categoria>(collectionName);
-
-            // Crear índice único (no afecta si ya existe)
-            var indexKeys = Builders<Categoria>.IndexKeys.Ascending(c => c.TipoDeServicio);
-            var indexOptions = new CreateIndexOptions
-            {
-                Name = "idx_categoria_tipo",
-                Unique = true,
-                Sparse = true
-            };
-
-            _categoriasCollection.Indexes.CreateOne(
-                new CreateIndexModel<Categoria>(indexKeys, indexOptions)
-            );
+            // índice único por nombre (opcional)
+            var indexKeys = Builders<Categoria>.IndexKeys.Ascending(c => c.Nombre);
+            var indexOptions = new CreateIndexOptions { Unique = true };
+            _categorias.Indexes.CreateOne(new CreateIndexModel<Categoria>(indexKeys, indexOptions));
         }
 
-        // GET ALL
-        public async Task<List<Categoria>> GetAllAsync() =>
-            await _categoriasCollection.Find(_ => true).ToListAsync();
+        public async Task<List<Categoria>> GetAllAsync()
+        {
+            return await _categorias.Find(_ => true).ToListAsync();
+        }
 
-        // GET BY ID
-        public async Task<Categoria> GetByIdAsync(string id) =>
-            await _categoriasCollection.Find(c => c.Id == id).FirstOrDefaultAsync();
+        public async Task<Categoria> GetByIdAsync(string id)
+        {
+            return await _categorias.Find(c => c.Id == id).FirstOrDefaultAsync();
+        }
 
-        // CREATE
+        public async Task<Categoria> GetByNameAsync(string nombre)
+        {
+            return await _categorias.Find(c => c.Nombre == nombre).FirstOrDefaultAsync();
+        }
+
         public async Task CreateAsync(Categoria categoria)
         {
             categoria.CreadoEn = DateTime.UtcNow;
-            await _categoriasCollection.InsertOneAsync(categoria);
+            await _categorias.InsertOneAsync(categoria);
         }
 
-        // UPDATE
-        public async Task UpdateAsync(string id, Categoria categoriaUpdate)
+        public async Task UpdateAsync(string id, Categoria categoriaIn)
         {
-            categoriaUpdate.Id = id;
-            await _categoriasCollection.ReplaceOneAsync(c => c.Id == id, categoriaUpdate);
+            categoriaIn.Id = id;
+            await _categorias.ReplaceOneAsync(c => c.Id == id, categoriaIn);
         }
 
-        // DELETE
-        public async Task DeleteAsync(string id) =>
-            await _categoriasCollection.DeleteOneAsync(c => c.Id == id);
+        public async Task DeleteAsync(string id)
+        {
+            await _categorias.DeleteOneAsync(c => c.Id == id);
+        }
     }
 }

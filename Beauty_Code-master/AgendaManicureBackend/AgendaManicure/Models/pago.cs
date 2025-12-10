@@ -19,12 +19,12 @@ namespace AgendaManicure.Models
 
         // Estado del pago (pendiente, completado, cancelado)
         [BsonElement("estado")]
-        public string Estado { get; set; } = string.Empty;
+        public string Estado { get; set; } = "pendiente";
 
         // Fecha del pago
         [BsonElement("fecha")]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; } = DateTime.Now;
 
         // REFERENCIA AL USUARIO
         [BsonElement("usuario_id")]
@@ -40,9 +40,9 @@ namespace AgendaManicure.Models
         [BsonElement("referencia_externa")]
         public string? ReferenciaExterna { get; set; }
 
-        // Fecha de creación
+        // Fecha de creación automática
         [BsonElement("creadoEn")]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime? CreadoEn { get; set; }
+        public DateTime CreadoEn { get; set; } = DateTime.Now;
     }
 }

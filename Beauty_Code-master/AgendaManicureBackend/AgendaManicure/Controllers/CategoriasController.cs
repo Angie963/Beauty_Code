@@ -58,11 +58,8 @@ namespace AgendaManicure.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Categoria categoria)
         {
-            if (categoria == null || string.IsNullOrWhiteSpace(categoria.TipoDeServicio))
+            if (categoria == null)
                 return BadRequest(new { message = "El campo tipo_de_servicio es obligatorio" });
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
             try
             {
@@ -77,7 +74,11 @@ namespace AgendaManicure.Controllers
                 return StatusCode(500, new { message = "Error al crear la categoría", detail = ex.Message });
             }
 
-            return CreatedAtRoute("GetCategoriaById", new { id = categoria.Id }, categoria);
+            return Ok(new
+            {
+                message = "Categoría creada correctamente",
+                data = categoria
+            });
         }
 
         // PUT: api/categorias/{id}
@@ -93,7 +94,7 @@ namespace AgendaManicure.Controllers
 
             try
             {
-                categoria.Id = id; // mantener el mismo ID
+                categoria.Id = id;
                 await _categoriaService.UpdateAsync(id, categoria);
             }
             catch (MongoWriteException)
@@ -105,7 +106,11 @@ namespace AgendaManicure.Controllers
                 return StatusCode(500, new { message = "Error al actualizar la categoría", detail = ex.Message });
             }
 
-            return NoContent();
+            return Ok(new
+            {
+                message = "Categoría actualizada correctamente",
+                data = categoria
+            });
         }
 
         // DELETE: api/categorias/{id}
@@ -128,8 +133,9 @@ namespace AgendaManicure.Controllers
                 return StatusCode(500, new { message = "Error al eliminar la categoría", detail = ex.Message });
             }
 
-            return NoContent();
+            return Ok(new { message = "Categoría eliminada correctamente" });
         }
     }
 }
+
 

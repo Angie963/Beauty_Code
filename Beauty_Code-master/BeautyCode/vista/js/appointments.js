@@ -1,15 +1,26 @@
-// Datos ficticios
-let servicios = [
-    { id: 1, nombre: "Manicura en Gel", precio:50000},
-    { id: 2, nombre: "Uñas Acrílicas", precio:90000},
-    { id: 3, nombre: "Semipermanentes", precio:40000}
-];
+const API_URL = "http://localhost:5272/api";
+
+let servicios = [];
+let citas = [];
 
 let empleados = [
     { id: 1, nombre: "Camila" },
     { id: 2, nombre: "Daniela" },
     { id: 3, nombre: "Sofía" }
 ];
+
+async function cargarCitas() {
+    try {
+        const res = await fetch(`${API_URL}/Agenda`);
+        if (!res.ok) throw new Error("No se pudo cargar citas");
+
+        citas = await res.json();
+        mostrarCitas();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 // Disponibilidad definida por admin
 let disponibilidad = {
@@ -18,18 +29,31 @@ let disponibilidad = {
     horaFin: "17:00"
 };
 
-// Cargar citas existentes o crear lista vacía
-let citas = JSON.parse(localStorage.getItem("citas")) || [];
-
 // Cargar selects dinámicamente
-function cargarServicios() {
+async function cargarServicios() {
     const select = document.getElementById("servicioSelect");
-    servicios.forEach(s => {
-        let option = document.createElement("option");
-        option.value = s.id;
-        option.textContent = s.nombre;
-        select.appendChild(option);
-    });
+    select.innerHTML = `<option value="">Seleccione...</option>`;
+
+    try {
+        const res = await fetch(`${API_URL}/servicios`);
+        if (!res.ok) throw new Error("Error obteniendo servicios");
+
+        const data = await res.json();
+
+        data.forEach(s => {
+            let option = document.createElement("option");
+            option.value = s.id;          // viene de MongoDB
+            option.textContent = `${s.nombre} ($${s.precio.toLocaleString()})`;
+            select.appendChild(option);
+        });
+
+        // Guardarlo en una variable global para usar en el resumen
+        servicios = data;
+
+    } catch (err) {
+        console.error(err);
+        alert("Error cargando servicios desde el servidor");
+    }
 }
 
 function cargarEmpleados() {
@@ -156,30 +180,39 @@ function generarResumen() {
 }
 
 // Guardar cita
-function guardarCita() {
-    let servicioID = document.getElementById("servicioSelect").value;
-    let empleadoID = document.getElementById("empleadoSelect").value;
-    let fecha = document.getElementById("fechaInput").value;
-    let hora = document.getElementById("horaInput").value;
+async function guardarCita() {
+    try {
+        const servicioID = document.getElementById("servicioSelect").value;
+        const empleadoID = document.getElementById("empleadoSelect").value;
+        const fecha = document.getElementById("fechaInput").value;
+        const hora = document.getElementById("horaInput").value;
 
-    const servicio = servicios.find(s => s.id == servicioID);
+        const servicio = servicios.find(s => s.id === servicioID);
 
-    let cita = {
-        id: Date.now(),
-        servicio: servicio.nombre,
-        precio: servicio.precio,
-        adelanto: servicio.precio * 0.10,
-        empleado: empleados.find(e => e.id == empleadoID).nombre,
-        fecha,
-        hora
-    };
+        let nuevaCita = {
+            fecha: fecha,
+            hora: hora,
+            estado: "pendiente",
+            pagoAgenda: servicio.precio * 0.10,
+            usuarioId: "675aeb8ac8dc2fcebd76f122" // usarás el del login más adelante
+        };
 
-    citas.push(cita);
-    localStorage.setItem("citas", JSON.stringify(citas));
+        const res = await fetch(`${API_URL}/Agenda`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevaCita)
+        });
 
-    alert("Cita registrada con éxito");
-    mostrarCitas();
-    limpiarFormulario();
+        if (!res.ok) throw new Error("Error al registrar cita");
+
+        alert("Cita registrada con éxito en el servidor");
+        limpiarFormulario();
+        cargarCitas();
+
+    } catch (error) {
+        console.error(error);
+        alert("Error: no se pudo guardar la cita.");
+    }
 }
 
 function generarResumenFinal()
@@ -212,9 +245,13 @@ function generarResumenFinal()
 function generarHorasDisponibles()
 {
     const contenedor = document.getElementById("horaContainer");
+    if (!contenedor) return;
     contenedor.innerHTML = "";
     const fecha = document.getElementById("fechaInput").value;
     const empleadoID = document.getElementById("empleadoSelect").value;
+
+    if (!fecha || !empleadoID) return;
+    document.getElementById("paso4").classList.remove("d-none");
 
     let inicio = parseInt(disponibilidad.horaInicio.split(":")[0]);
     let fin = parseInt(disponibilidad.horaFin.split(":")[0]);
@@ -223,16 +260,15 @@ function generarHorasDisponibles()
     {
         let hora = (h < 10 ? "0" : "") + h + ":00";
 
-        let ocupada = cita.some(c =>
-            c.fecha === fecha &&
-            c.hora === hora &&
-            c.empleado === empleados.find(e => e.id == empleadoID).nombre
-        );
+        let ocupada = citas.some(c =>
+    c.fecha.split("T")[0] === fecha &&
+    c.hora === hora
+);
 
         let btn = document.createElement("button");
         btn.textContent = hora;
 
-        btn.className = "btn m-1 " + (ocupada ? "btn-secondary" : "btn-primary");
+        btn.className = "hora-btn" + (ocupada ? " ocupada" : "");
         btn.disabled = ocupada;
 
         if (!ocupada)
@@ -305,4 +341,4 @@ function horaDisponible(fecha, hora, empleadoID)
 // Inicialización
 cargarServicios();
 cargarEmpleados();
-mostrarCitas();
+cargarCitas();

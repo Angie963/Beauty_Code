@@ -18,6 +18,18 @@ namespace AgendaManicure.Models
         [BsonElement("hora")]
         public string Hora { get; set; } = string.Empty;
 
+        [BsonElement("servicio_id")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ServicioId { get; set; } = null!;
+
+        [BsonElement("empleado_id")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string EmpleadoId { get; set; } = null!;
+
+        
+        [BsonElement("precio_servicio")]
+        public double PrecioServico { get; set; }
+
         [BsonElement("estado")]
         public string Estado { get; set; } = string.Empty; // pendiente, aceptada, cancelada, etc.
 

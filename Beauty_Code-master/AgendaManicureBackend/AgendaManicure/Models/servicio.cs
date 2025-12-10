@@ -7,7 +7,7 @@ namespace AgendaManicure.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonElement("nombre")]
         public string Nombre { get; set; }
@@ -18,7 +18,7 @@ namespace AgendaManicure.Models
         [BsonElement("precio")]
         public double Precio { get; set; }
 
-        [BsonElement("duracion_minutos")]
+        [BsonElement("duracionMinutos")]
         public int DuracionMinutos { get; set; }
 
         [BsonElement("categoria_id")]

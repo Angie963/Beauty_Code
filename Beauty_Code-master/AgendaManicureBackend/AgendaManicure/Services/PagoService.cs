@@ -13,7 +13,7 @@ namespace AgendaManicure.Services
             var client = new MongoClient(mongoSettings.Value.ConnectionString);
             var database = client.GetDatabase(mongoSettings.Value.DatabaseName);
 
-            var collectionName = mongoSettings.Value.Collections.Pagos ?? "pagos";
+            var collectionName = mongoSettings.Value.Collections?.Pagos ?? "pagos";
             _pagosCollection = database.GetCollection<Pago>(collectionName);
         }
 
@@ -32,7 +32,7 @@ namespace AgendaManicure.Services
         // CREATE
         public async Task CreateAsync(Pago pago)
         {
-            pago.CreadoEn = pago.CreadoEn == default ? DateTime.UtcNow : pago.CreadoEn;
+            pago.CreadoEn = DateTime.Now; // mejor práctica
             await _pagosCollection.InsertOneAsync(pago);
         }
 
@@ -49,7 +49,7 @@ namespace AgendaManicure.Services
             await _pagosCollection.DeleteOneAsync(p => p.Id == id);
         }
 
-        // OPTIONAL: buscar pagos por usuario
+        // Buscar pagos por usuario
         public async Task<List<Pago>> GetByUsuarioIdAsync(string usuarioId)
         {
             return await _pagosCollection.Find(p => p.UsuarioId == usuarioId).ToListAsync();

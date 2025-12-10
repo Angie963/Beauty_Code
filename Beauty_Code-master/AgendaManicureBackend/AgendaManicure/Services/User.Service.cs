@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using AgendaManicure.Models;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BCrypt.Net;
 
@@ -16,11 +17,11 @@ namespace AgendaManicure.Services
             var client = new MongoClient(mongoSettings.Value.ConnectionString);
             var database = client.GetDatabase(mongoSettings.Value.DatabaseName);
 
-            // Usar el nombre de la colección desde appsettings.json
+            // Nombre de la colección desde appsettings.json
             var collectionName = mongoSettings.Value.Collections.Users;
             _usersCollection = database.GetCollection<User>(collectionName);
 
-            // Crear índice único en email
+            // Crear índice único en el email
             var indexKeys = Builders<User>.IndexKeys.Ascending(u => u.Email);
             var indexOptions = new CreateIndexOptions { Unique = true };
             _usersCollection.Indexes.CreateOne(new CreateIndexModel<User>(indexKeys, indexOptions));
@@ -35,13 +36,23 @@ namespace AgendaManicure.Services
         // GET BY ID
         public async Task<User> GetByIdAsync(string id)
         {
-            return await _usersCollection.Find(u => u.Id == id).FirstOrDefaultAsync();
+            return await _usersCollection
+                .Find(u => u.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        // GET BY EMAIL (para login)
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await _usersCollection
+                .Find(u => u.Email == email)
+                .FirstOrDefaultAsync();
         }
 
         // CREATE
         public async Task CreateAsync(User user)
         {
-            // Hashear contraseña
+            // Hashear contraseña antes de guardar
             user.Contrasena = BCrypt.Net.BCrypt.HashPassword(user.Contrasena);
 
             user.CreadoEn = DateTime.UtcNow;
@@ -54,7 +65,6 @@ namespace AgendaManicure.Services
         {
             updateUser.Id = id;
 
-            // Si actualiza contraseña -> volver a hashear
             if (!string.IsNullOrEmpty(updateUser.Contrasena))
             {
                 updateUser.Contrasena = BCrypt.Net.BCrypt.HashPassword(updateUser.Contrasena);
@@ -70,3 +80,4 @@ namespace AgendaManicure.Services
         }
     }
 }
+
