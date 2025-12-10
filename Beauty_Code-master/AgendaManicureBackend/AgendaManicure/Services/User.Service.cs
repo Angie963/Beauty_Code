@@ -17,14 +17,9 @@ namespace AgendaManicure.Services
             var client = new MongoClient(mongoSettings.Value.ConnectionString);
             var database = client.GetDatabase(mongoSettings.Value.DatabaseName);
 
-            // Nombre de la colección desde appsettings.json
+            // Usar el nombre de la colección desde appsettings.json
             var collectionName = mongoSettings.Value.Collections.Users;
             _usersCollection = database.GetCollection<User>(collectionName);
-
-            // Crear índice único en el email
-            var indexKeys = Builders<User>.IndexKeys.Ascending(u => u.Email);
-            var indexOptions = new CreateIndexOptions { Unique = true };
-            _usersCollection.Indexes.CreateOne(new CreateIndexModel<User>(indexKeys, indexOptions));
         }
 
         // GET ALL
@@ -52,7 +47,7 @@ namespace AgendaManicure.Services
         // CREATE
         public async Task CreateAsync(User user)
         {
-            // Hashear contraseña antes de guardar
+            // Hashear contraseña
             user.Contrasena = BCrypt.Net.BCrypt.HashPassword(user.Contrasena);
 
             user.CreadoEn = DateTime.UtcNow;
@@ -65,6 +60,7 @@ namespace AgendaManicure.Services
         {
             updateUser.Id = id;
 
+            // Si actualiza contraseña -> volver a hashear
             if (!string.IsNullOrEmpty(updateUser.Contrasena))
             {
                 updateUser.Contrasena = BCrypt.Net.BCrypt.HashPassword(updateUser.Contrasena);
@@ -80,4 +76,3 @@ namespace AgendaManicure.Services
         }
     }
 }
-

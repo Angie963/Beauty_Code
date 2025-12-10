@@ -1,29 +1,40 @@
-const usuarios = [
-    { usuario: "admin", password: "admin123", rol: "admin", pagina: "dashboard-admin.html" },
-    { usuario: "empleado", password: "empleado123", rol: "empleado", pagina: "dashboard-empleado.html" },
-    { usuario: "cliente", password: "cliente123", rol: "cliente", pagina: "index.html" }
-];
-
-document.getElementById("loginForm").addEventListener("submit", function(e) {
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    let user = document.getElementById("username").value.trim();
-    let pass = document.getElementById("password").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
 
-    let encontrado = usuarios.find(u => u.usuario === user && u.password === pass);
+    try {
+        const response = await fetch("http://localhost:5272/api/Users/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                contrasena: password,
+                password: password
+            })
+        });
 
-    if (encontrado) {
+        if (!response.ok) {
+            const error = await response.json();
+            alert(error.message || "Correo o contraseña incorrectos");
+            return;
+        }
 
-        // Guardamos al usuario para que funcione lo del menú
-        localStorage.setItem("user", JSON.stringify({
-            nombre: encontrado.usuario,
-            rol: encontrado.rol
-        }));
+        const data = await response.json();
 
-        alert("Inicio de sesión exitoso como " + encontrado.rol);
-        window.location.href = encontrado.pagina;
+        // Redirecciones según rol
+        if (data.user.rol.includes("administrador")) {
+            window.location.href = "dashboard-admin.html";
+        } else if (data.user.rol.includes("empleado")) {
+            window.location.href = "dashboard-empleado.html";
+        } else {
+            window.location.href = "index.html";
+        }
 
-    } else {
-        alert("Usuario o contraseña incorrectos");
+    } catch (error) {
+        alert("No se pudo conectar al servidor: " + error);
     }
 });

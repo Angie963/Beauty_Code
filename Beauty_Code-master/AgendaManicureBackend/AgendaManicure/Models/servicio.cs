@@ -13,10 +13,10 @@ namespace AgendaManicure.Models
         public string Nombre { get; set; }
 
         [BsonElement("descripcion")]
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
 
         [BsonElement("precio")]
-        public double Precio { get; set; }
+        public decimal Precio { get; set; }
 
         [BsonElement("duracionMinutos")]
         public int DuracionMinutos { get; set; }
@@ -29,6 +29,6 @@ namespace AgendaManicure.Models
         public bool Activo { get; set; } = true;
 
         [BsonElement("creadoEn")]
-        public DateTime CreadoEn { get; set; }
+        public DateTime CreadoEn { get; set; } = DateTime.UtcNow;
     }
 }

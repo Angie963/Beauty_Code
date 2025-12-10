@@ -14,7 +14,7 @@
 <header>
     <nav id="menu">
         <div>
-            <img src="img/logo con delineado.png" alt="Logo Beauty Code", class="logo">
+            <img src="img/logo con delineado.png" alt="Logo Beauty Code" class="logo">
         </div>
         
         <div>
@@ -23,22 +23,30 @@
             <a href="gallery.html"><img src="img/iconos/copiar-imagen.png" style="width:23px;padding-right:7px">Galería</a>
             <a href="reviews.html"><img src="img/iconos/revision-de-comentarios.png" style="width:23px;padding-right:7px">Reseñas</a>
             <a href="appointments.html"><img src="img/iconos/dia-del-calendario.png" style="width:20px;padding-right:7px">Citas</a>
-            <a href="perfil.html"><img src="img/iconos/lapiz-de-usuario.png" style="width:21px;padding-right:7px">Perfil</a>
-            <a href="login.html">Iniciar Sesión</a>
+            
+            <!-- BOTÓN PERFIL -->
+            <a id="perfilBtn" href="perfil.html" style="display:none;">
+                <img src="img/iconos/lapiz-de-usuario.png" style="width:21px;padding-right:7px">
+                <span id="bienvenidaTexto">Perfil</span>
+            </a>
+
+            <!-- INICIAR SESIÓN -->
+            <a id="loginBtn" href="login.html">Iniciar Sesión</a>
+
+            <!-- CERRAR SESIÓN -->
+            <a id="logoutBtn" href="#" style="display:none;">Cerrar Sesión</a>
         </div>
     </nav>
 </header>
 
-
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container">
 
-        <h1>Bienvenida a Beauty Code</h1>
+        <h1 id="saludoPrincipal">Bienvenida a Beauty Code</h1>
         <p>
             Agenda tus servicios de manicura con nuestro sistema profesional.
             Explora nuestros diseños, servicios, reseñas y gestiona tus citas fácilmente.
         </p>
-        <a>
 
         <section class="tarjeta">
             <h2>Reserva tu cita</h2>
@@ -67,5 +75,43 @@
         <br> Desarrollado por Iron Code
     </footer>
 
+<script>
+    // Datos desde login.js
+    const usuario = localStorage.getItem("usuario");
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+
+    const perfil = document.getElementById("perfilBtn");
+    const login = document.getElementById("loginBtn");
+    const logout = document.getElementById("logoutBtn");
+    const bienvenidaTexto = document.getElementById("bienvenidaTexto");
+    const saludoPrincipal = document.getElementById("saludoPrincipal");
+
+    // Si hay sesión iniciada
+    if (usuario && nombreUsuario) {
+        perfil.style.display = "inline-block";
+        bienvenidaTexto.textContent = "Perfil"; // SOLO mostrar "Perfil" en el menú
+        login.style.display = "none";
+        logout.style.display = "inline-block";
+
+        // Cambiar saludo inferior
+        saludoPrincipal.textContent = "Bienvenido, " + nombreUsuario;
+    } 
+    else {
+        perfil.style.display = "none";
+        login.style.display = "inline-block";
+        logout.style.display = "none";
+
+        saludoPrincipal.textContent = "Bienvenida a Beauty Code";
+    }
+
+    // Cerrar sesión
+    logout.addEventListener("click", function () {
+        localStorage.removeItem("usuario");
+        localStorage.removeItem("nombreUsuario");
+        window.location.reload();
+    });
+</script>
+
 </body>
 </html>
+

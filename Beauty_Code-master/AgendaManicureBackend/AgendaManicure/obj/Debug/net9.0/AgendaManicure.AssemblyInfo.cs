@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgendaManicure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f09d0e14dd07170f93fc18e574bd4862fef81197")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba94d222c9697ca28578063bf4b30c96b51fd860")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgendaManicure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgendaManicure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

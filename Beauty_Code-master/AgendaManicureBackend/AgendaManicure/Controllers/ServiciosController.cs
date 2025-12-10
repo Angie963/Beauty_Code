@@ -1,6 +1,7 @@
 using AgendaManicure.Models;
 using AgendaManicure.Services;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace AgendaManicure.Controllers
 {
@@ -9,10 +10,12 @@ namespace AgendaManicure.Controllers
     public class ServiciosController : ControllerBase
     {
         private readonly ServicioService _servicioService;
+        private readonly CategoriaService _categoriaService;
 
-        public ServiciosController(ServicioService servicioService)
+        public ServiciosController(ServicioService servicioService, CategoriaService categoriaService)
         {
             _servicioService = servicioService;
+            _categoriaService = categoriaService;
         }
 
         // GET api/servicios
@@ -27,6 +30,9 @@ namespace AgendaManicure.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
+            if (!ObjectId.TryParse(id, out _))
+                return BadRequest(new { message = "ID inválido" });
+
             var servicio = await _servicioService.GetByIdAsync(id);
 
             if (servicio == null)
@@ -37,27 +43,41 @@ namespace AgendaManicure.Controllers
 
         // POST api/servicios
         [HttpPost]
-        public async Task<IActionResult> Create(Servicio servicio)
+        public async Task<IActionResult> Create([FromBody] Servicio servicio)
         {
-            try
-            {
-                await _servicioService.CreateAsync(servicio);
-                return Ok(new { message = "Servicio creado correctamente" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
+            if (servicio == null)
+                return BadRequest(new { message = "Datos inválidos" });
+
+            // Validar categoría
+            var categoria = await _categoriaService.GetByIdAsync(servicio.CategoriaId);
+            if (categoria == null)
+                return BadRequest(new { message = "La categoría no existe (categoria_id inválido)" });
+
+            servicio.CreadoEn = DateTime.UtcNow;
+
+            await _servicioService.CreateAsync(servicio);
+
+            return CreatedAtAction(nameof(GetById), new { id = servicio.Id }, servicio);
         }
 
         // PUT api/servicios/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, Servicio servicio)
+        public async Task<IActionResult> Update(string id, [FromBody] Servicio servicio)
         {
-            var existing = await _servicioService.GetByIdAsync(id);
+            if (!ObjectId.TryParse(id, out _))
+                return BadRequest(new { message = "ID inválido" });
 
+            var existing = await _servicioService.GetByIdAsync(id);
             if (existing == null)
                 return NotFound(new { message = "Servicio no existe" });
+
+            // Validar categoría si cambió
+            if (!string.IsNullOrWhiteSpace(servicio.CategoriaId))
+            {
+                var categoria = await _categoriaService.GetByIdAsync(servicio.CategoriaId);
+                if (categoria == null)
+                    return BadRequest(new { message = "La categoría no existe" });
+            }
 
             servicio.Id = id;
             await _servicioService.UpdateAsync(id, servicio);
@@ -69,8 +89,10 @@ namespace AgendaManicure.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var existing = await _servicioService.GetByIdAsync(id);
+            if (!ObjectId.TryParse(id, out _))
+                return BadRequest(new { message = "ID inválido" });
 
+            var existing = await _servicioService.GetByIdAsync(id);
             if (existing == null)
                 return NotFound(new { message = "Servicio no existe" });
 

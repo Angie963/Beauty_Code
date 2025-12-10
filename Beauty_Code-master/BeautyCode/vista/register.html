@@ -33,7 +33,7 @@
 
             <div class="col-12 col-md-6 mb-3">
             <label for="doctype" class="form-label">Tipo de documento</label>
-            <select class="form-select" id="doctype" name="doctype" required>
+            <select class="form-select" id="doctype" name="tipo_documento" required>
                 <option value="">Seleccione...</option>
                 <option value="CC">Cédula de ciudadanía (C.C)</option>
                 <option value="TI">Tarjeta de identidad (T.I)</option>
@@ -43,14 +43,14 @@
 
             <div class="col-12 col-md-6 mb-3">
             <label for="document" class="form-label">Número de documento</label>
-            <input type="text" class="form-control" id="document" name="document" placeholder="Ej: 1234567890" 
+            <input type="text" class="form-control" id="document" name="numero_documento" placeholder="Ej: 1234567890" 
             required minlength="6" pattern="[0-9]+" title="Solo se aceptan números">
             </div>
 
             <div class="col-12 col-md-6 mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="correo@example.com" 
-            required pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$">
+            required>
             </div>
 
             <div class="col-12 col-md-6 mb-3">

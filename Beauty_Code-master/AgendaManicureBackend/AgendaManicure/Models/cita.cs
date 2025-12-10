@@ -10,11 +10,9 @@ namespace AgendaManicure.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = null!;
 
-        // fecha -> tipo date en MongoDB
         [BsonElement("fecha")]
         public DateTime Fecha { get; set; }
 
-        // hora -> string (ej. "14:30")
         [BsonElement("hora")]
         public string Hora { get; set; } = string.Empty;
 
@@ -26,17 +24,15 @@ namespace AgendaManicure.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string EmpleadoId { get; set; } = null!;
 
-        
         [BsonElement("precio_servicio")]
-        public double PrecioServico { get; set; }
+        public double PrecioServicio { get; set; }
 
         [BsonElement("estado")]
-        public string Estado { get; set; } = string.Empty; // pendiente, aceptada, cancelada, etc.
+        public string Estado { get; set; } = "pendiente";
 
         [BsonElement("pago_agenda")]
         public double PagoAgenda { get; set; } = 0.0;
 
-        // referencia al usuario (objectId en Mongo)
         [BsonElement("usuario_id")]
         [BsonRepresentation(BsonType.ObjectId)]
         public string UsuarioId { get; set; } = null!;
@@ -45,3 +41,4 @@ namespace AgendaManicure.Models
         public DateTime CreadoEn { get; set; } = DateTime.UtcNow;
     }
 }
+

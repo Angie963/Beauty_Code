@@ -11,7 +11,7 @@ let empleados = [
 
 async function cargarCitas() {
     try {
-        const res = await fetch(`${API_URL}/Agenda`);
+        const res = await fetch(`http://localhost:5272/api/Agenda`);
         if (!res.ok) throw new Error("No se pudo cargar citas");
 
         citas = await res.json();
@@ -35,7 +35,7 @@ async function cargarServicios() {
     select.innerHTML = `<option value="">Seleccione...</option>`;
 
     try {
-        const res = await fetch(`${API_URL}/servicios`);
+        const res = await fetch(`http://localhost:5272/api/servicios`);
         if (!res.ok) throw new Error("Error obteniendo servicios");
 
         const data = await res.json();
@@ -190,6 +190,8 @@ async function guardarCita() {
         const servicio = servicios.find(s => s.id === servicioID);
 
         let nuevaCita = {
+            servicioId: servicioID,
+            empleadoId: empleadoID,
             fecha: fecha,
             hora: hora,
             estado: "pendiente",
@@ -197,15 +199,18 @@ async function guardarCita() {
             usuarioId: "675aeb8ac8dc2fcebd76f122" // usarás el del login más adelante
         };
 
-        const res = await fetch(`${API_URL}/Agenda`, {
+        const res = await fetch(`http://localhost:5272/api/Agenda`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(nuevaCita)
         });
 
-        if (!res.ok) throw new Error("Error al registrar cita");
+        if (!res.ok) {
+            const text = await res.text();
+            throw new Error("Error al registrar cita");
+        }        
 
-        alert("Cita registrada con éxito en el servidor");
+        alert("Cita registrada con éxito");
         limpiarFormulario();
         cargarCitas();
 
@@ -303,10 +308,13 @@ function mostrarCitas() {
     tabla.innerHTML = "";
 
     citas.forEach(c => {
+        let servicio = servicios.find(s => s.id === c.servicioId);
+        let empleado = empleados.find(e => e.id == c.empleadoId);
+
         let tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${c.servicio}</td>
-            <td>${c.empleado}</td>
+            <td>${c.servicio ? servicio.nombre : "N/A"}</td>
+            <td>${c.empleado ? empleado.nombre : "N/A"}</td>
             <td>${c.fecha}</td>
             <td>${c.hora}</td>
             <td>
@@ -319,10 +327,15 @@ function mostrarCitas() {
 }
 
 // Funciones de reagendar y cancelar
-function cancelar(id) {
-    citas = citas.filter(c => c.id !== id);
-    localStorage.setItem("citas", JSON.stringify(citas));
-    mostrarCitas();
+async function cancelar(id) {
+const res = await fetch(`http://localhost:5272/api/Agenda/${id}`, {method: "DELETE"});
+
+    if (!res.ok) {
+        alert("Error al cancelar cita");
+        return;
+    }
+
+    cargarCitas();
 }
 
 function reagendar(id) {
