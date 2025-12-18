@@ -1,5 +1,6 @@
 const API_URL = "http://localhost:5272/api";
 
+let citaEnEdicion = null;
 let servicios = [];
 let citas = [];
 
@@ -8,6 +9,11 @@ let empleados = [
     { id: 2, nombre: "Daniela" },
     { id: 3, nombre: "Sofía" }
 ];
+
+function esReagendar()
+{
+    return citaEnEdicion !== null;
+}
 
 async function cargarCitas() {
     try {
@@ -42,7 +48,7 @@ async function cargarServicios() {
 
         data.forEach(s => {
             let option = document.createElement("option");
-            option.value = s.id;          // viene de MongoDB
+            option.value = s.id;
             option.textContent = `${s.nombre} ($${s.precio.toLocaleString()})`;
             select.appendChild(option);
         });
@@ -69,65 +75,49 @@ function cargarEmpleados() {
 // Controlador de pasos
 function nextStep(step) {
 
-    if (step === 1 && !document.getElementById("servicioSelect").value)
-        return alert("Selecciona un servicio");
-    if (step === 2 && !document.getElementById("empleadoSelect").value)
-        return alert("Selecciona un manicurista");
-    if (step === 3 && !validarFecha()) return;
-    if (step === 4 && !validarHora()) return;
-    // Paso 4 genera el resumen (paso5)
-    if (step === 4) {
-        generarResumen();
-    }
-    // Paso 6 → Validar comprobante ANTES de pasar al paso7
-    if (step === 6) {
-        let comprobante = document.getElementById("comprobante").files[0];
-        if (!comprobante) {
-            alert("Debes subir el comprobante antes de continuar");
-            return;
+    // VALIDACIONES SOLO PARA CITA NUEVA
+    if (!esReagendar()) {
+
+        if (step === 1 && !document.getElementById("servicioSelect").value)
+            return alert("Selecciona un servicio");
+
+        if (step === 2 && !document.getElementById("empleadoSelect").value)
+            return alert("Selecciona un manicurista");
+
+        if (step === 3)
+        {
+            if (!validarFecha()) return;
+            generarHorasDisponibles();
         }
-        generarResumenFinal();
+
+        if (step === 4 && !validarHora()) return;
+
+        if (step === 4) generarResumen();
+
+        if (step === 6) {
+            let comprobante = document.getElementById("comprobante").files[0];
+            if (!comprobante) {
+                alert("Debes subir el comprobante");
+                return;
+            }
+            generarResumenFinal();
+        }
+
+    } 
+    // VALIDACIONES PARA REAGENDAR
+    else {
+
+        if (step === 2 && !document.getElementById("empleadoSelect").value)
+            return alert("Selecciona un manicurista");
+
+        if (step === 3 && !validarFecha()) return;
+
+        if (step === 4 && !validarHora()) return;
+
+        if (step === 4) generarResumenFinal();
     }
 
-    // Mostrar siguiente paso
     document.getElementById("paso" + (step + 1)).classList.remove("d-none");
-}
-
-
-// Validar fecha según disponibilidad admin
-function validarFecha() {
-    let fecha = document.getElementById("fechaInput").value;
-    if (!fecha) {
-        alert("Selecciona una fecha");
-        return false;
-    }
-
-    let date = new Date(fecha);
-    let hoy = new Date();
-
-    // No permitir días pasados
-    if (date < hoy) {
-        alert("La fecha no puede ser anterior a hoy");
-        return false;
-    }
-
-    // No permitir agendar más de 1 año
-    let max = new Date();
-    max.setFullYear(max.getFullYear() + 1);
-
-    if (date > max) {
-        alert("No puedes agendar una cita con más de 1 año de anticipación");
-        return false;
-    }
-
-    // Validar día hábil
-    let dia = date.getDay();
-    if (!disponibilidad.diasHabiles.includes(dia)) {
-        alert("Ese día no está disponible. El negocio trabaja de lunes a viernes.");
-        return false;
-    }
-
-    return true;
 }
 
 // Validar hora según horario admin
@@ -155,16 +145,34 @@ function validarHora() {
     return true;
 }
 
+function validarFecha() {
+    const fecha = document.getElementById("fechaInput").value;
+
+    if (!fechaInput) {
+        alert("Selecciona una fecha");
+        return false;
+    }
+
+    return true;
+}
+
 function generarResumen() {
     const idServicio = document.getElementById("servicioSelect").value;
     const idEmpleado = document.getElementById("empleadoSelect").value;
     const fecha = document.getElementById("fechaInput").value;
     const hora = document.getElementById("horaInput").value;
 
-    const servicio = servicios.find(s => s.id == idServicio);
-    const empleado = empleados.find(e => e.id == idEmpleado);
+    const servicio = servicios.find(s => s.id === idServicio);
+    const empleado = empleados.find(e => String(e.id) === String(idEmpleado));
+
+    if (!servicio || !empleado) {
+        alert("Error cargando datos del servicio o especialista");
+        console.error("Servicio:", servicio, "Empleado:", empleado);
+        return;
+    }
 
     let adelanto = servicio.precio * 0.10;
+
     let html = `
         <p><strong>Servicio:</strong> ${servicio.nombre}</p>
         <p><strong>Especialista:</strong> ${empleado.nombre}</p>
@@ -173,7 +181,6 @@ function generarResumen() {
         <hr>
         <p><strong>Valor del servicio:</strong> $${servicio.precio.toLocaleString()}</p>
         <p><strong>Adelanto (10%):</strong> $${adelanto.toLocaleString()}</p>
-        <p><strong>Total a pagar ahora:</strong> $${adelanto.toLocaleString()}</p>
     `;
 
     document.getElementById("resumenBox").innerHTML = html;
@@ -181,68 +188,117 @@ function generarResumen() {
 
 // Guardar cita
 async function guardarCita() {
-    try {
-        const servicioID = document.getElementById("servicioSelect").value;
-        const empleadoID = document.getElementById("empleadoSelect").value;
-        const fecha = document.getElementById("fechaInput").value;
-        const hora = document.getElementById("horaInput").value;
 
+    const empleadoID = document.getElementById("empleadoSelect").value;
+    const fechaInput = document.getElementById("fechaInput").value;
+    const hora = document.getElementById("horaInput").value;
+
+    const fechaISO = new Date(`${fechaInput}T${hora}:00`).toISOString();
+
+    let url = "http://localhost:5272/api/Agenda";
+    let method = "POST";
+
+    let cita = {
+        fecha: fechaISO,
+        hora: hora,
+        empleadoId: empleadoID
+    };
+
+    // SI ES REAGENDAR
+    if (citaEnEdicion) {
+        url += `/${citaEnEdicion.id}`;
+        method = "PUT";
+
+        cita = {
+            ...citaEnEdicion,
+            fecha: fechaISO,
+            hora: hora,
+            empleadoId: empleadoID
+        };
+    } 
+    // CITA NUEVA
+    else {
+        const servicioID = document.getElementById("servicioSelect").value;
         const servicio = servicios.find(s => s.id === servicioID);
 
-        let nuevaCita = {
+        cita = {
+            fecha: fechaISO,
+            hora,
             servicioId: servicioID,
             empleadoId: empleadoID,
-            fecha: fecha,
-            hora: hora,
-            estado: "pendiente",
+            precioServicio: servicio.precio,
+            estado: "Pendiente",
             pagoAgenda: servicio.precio * 0.10,
-            usuarioId: "675aeb8ac8dc2fcebd76f122" // usarás el del login más adelante
+            usuarioId: "675aeb8ac8dc2fcebd76f122",
+            creadoEn: new Date().toISOString()
         };
-
-        const res = await fetch(`http://localhost:5272/api/Agenda`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(nuevaCita)
-        });
-
-        if (!res.ok) {
-            const text = await res.text();
-            throw new Error("Error al registrar cita");
-        }        
-
-        alert("Cita registrada con éxito");
-        limpiarFormulario();
-        cargarCitas();
-
-    } catch (error) {
-        console.error(error);
-        alert("Error: no se pudo guardar la cita.");
     }
+
+    const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cita)
+    });
+
+    if (!res.ok) {
+        alert("Error guardando la cita");
+        return;
+    }
+
+    alert(citaEnEdicion ? "Cita reagendada con éxito" : "Cita registrada con éxito");
+
+    citaEnEdicion = null;
+    limpiarFormulario();
+    mostrarPasoInicial();
+    cargarCitas();
 }
 
-function generarResumenFinal()
-{
-    const idServicio = document.getElementById("servicioSelect").value;
-    const idEmpleado = document.getElementById("empleadoSelect").value;
+function generarResumenFinal() {
 
-    const servicio = servicios.find(s => s.id == idServicio);
-    const empleado = empleados.find(e => e.id == idEmpleado);
+    let servicio;
+    let empleado;
+
+    const idEmpleado = document.getElementById("empleadoSelect").value;
+    empleado = empleados.find(e => String(e.id) === String(idEmpleado));
+
+    // SI ES CITA NUEVA
+    if (!citaEnEdicion) {
+        const idServicio = document.getElementById("servicioSelect").value;
+        servicio = servicios.find(s => String(s.id) === String(idServicio));
+    } 
+    // SI ES REAGENDAR
+    else {
+        servicio = servicios.find(s => String(s.id) === String(citaEnEdicion.servicioId));
+    }
+
+    if (!servicio || !empleado) {
+        console.error("Servicio:", servicio);
+        console.error("Empleado:", empleado);
+        return;
+    }
 
     const fecha = document.getElementById("fechaInput").value;
     const hora = document.getElementById("horaInput").value;
-    const comprobante = document.getElementById("comprobante").files[0];
-
-    let adelanto = servicio.precio * 0.10;
 
     let html = `
-    <p><strong>Servicio:</strong> ${servicio.nombre}</p>
-    <p><strong>Especialista:</strong> ${empleado.nombre}</p>
-    <p><strong>Fecha:</strong> ${fecha}</p>
-    <p><strong>Hora:</strong> ${hora}</p>
-    <p><strong>Comprobante:</strong> ${comprobante ? comprobante.name : "No cargado"}</p>
-    <hr>
-    <p><strong>Valor del servicio:</strong> $${servicio.precio.toLocaleString()}</p>
+        <p><strong>Servicio:</strong> ${servicio.nombre}</p>
+        <p><strong>Especialista:</strong> ${empleado.nombre}</p>
+        <p><strong>Fecha:</strong> ${fecha}</p>
+        <p><strong>Hora:</strong> ${hora}</p>
     `;
+
+    // SOLO PARA CITA NUEVA
+    if (!citaEnEdicion) {
+        const comprobante = document.getElementById("comprobante").files[0];
+        let adelanto = servicio.precio * 0.10;
+
+        html += `
+            <p><strong>Comprobante:</strong> ${comprobante.name}</p>
+            <hr>
+            <p><strong>Valor del servicio:</strong> $${servicio.precio.toLocaleString()}</p>
+            <p><strong>Adelanto:</strong> $${adelanto.toLocaleString()}</p>
+        `;
+    }
 
     document.getElementById("resumenFinal").innerHTML = html;
 }
@@ -256,7 +312,6 @@ function generarHorasDisponibles()
     const empleadoID = document.getElementById("empleadoSelect").value;
 
     if (!fecha || !empleadoID) return;
-    document.getElementById("paso4").classList.remove("d-none");
 
     let inicio = parseInt(disponibilidad.horaInicio.split(":")[0]);
     let fin = parseInt(disponibilidad.horaFin.split(":")[0]);
@@ -266,13 +321,13 @@ function generarHorasDisponibles()
         let hora = (h < 10 ? "0" : "") + h + ":00";
 
         let ocupada = citas.some(c =>
-    c.fecha.split("T")[0] === fecha &&
-    c.hora === hora
-);
+            c.fecha.split("T")[0] === fecha &&
+            c.hora === hora &&
+            String(c.empleadoId) === String(empleadoID)
+        );
 
         let btn = document.createElement("button");
         btn.textContent = hora;
-
         btn.className = "hora-btn" + (ocupada ? " ocupada" : "");
         btn.disabled = ocupada;
 
@@ -308,18 +363,18 @@ function mostrarCitas() {
     tabla.innerHTML = "";
 
     citas.forEach(c => {
-        let servicio = servicios.find(s => s.id === c.servicioId);
-        let empleado = empleados.find(e => e.id == c.empleadoId);
+        const servicio = servicios.find(s => s.id === c.servicioId);
+        const empleado = empleados.find(e => e.id.toString() === c.empleadoId);
 
         let tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${c.servicio ? servicio.nombre : "N/A"}</td>
-            <td>${c.empleado ? empleado.nombre : "N/A"}</td>
-            <td>${c.fecha}</td>
+            <td>${servicio ? servicio.nombre : "N/A"}</td>
+            <td>${empleado ? empleado.nombre : "N/A"}</td>
+            <td>${c.fecha.split("T")[0]}</td>
             <td>${c.hora}</td>
             <td>
-                <button class="btn-primary" style="background:#F07A4B; margin-top:0" onclick="reagendar(${c.id})">Reagendar</button>
-                <button class="btn-primary" onclick="cancelar(${c.id})">Cancelar</button>
+                <button class="btn-primary" style="background:#F07A4B; margin-top:0" onclick="reagendar('${c.id}')">Reagendar</button>
+                <button class="btn-primary" onclick="cancelar('${c.id}')">Cancelar</button>
             </td>
         `;
         tabla.appendChild(tr);
@@ -339,16 +394,50 @@ const res = await fetch(`http://localhost:5272/api/Agenda/${id}`, {method: "DELE
 }
 
 function reagendar(id) {
-    alert("Esta función se conectará al backend después.");
+
+    citaEnEdicion = citas.find(c => c.id === id);
+    if (!citaEnEdicion) {
+        alert("Cita no encontrada");
+        return;
+    }
+
+    // Cargar datos actuales
+    document.getElementById("empleadoSelect").value = citaEnEdicion.empleadoId;
+    document.getElementById("fechaInput").value = citaEnEdicion.fecha.split("T")[0];
+    document.getElementById("horaInput").value = citaEnEdicion.hora;
+
+    generarHorasDisponibles();
+
+    // OCULTAR pasos que NO deben salir
+    document.getElementById("paso1").classList.add("d-none"); // servicio
+    document.getElementById("paso5").classList.add("d-none"); // resumen normal
+    document.getElementById("paso6").classList.add("d-none"); // comprobante
+
+    // MOSTRAR solo lo necesario
+    document.getElementById("paso2").classList.remove("d-none"); // manicurista
+    document.getElementById("paso3").classList.remove("d-none"); // fecha
+    document.getElementById("paso4").classList.remove("d-none"); // hora
+    document.getElementById("paso7").classList.remove("d-none"); // confirmar
+
+    generarResumenFinal();
 }
 
-function horaDisponible(fecha, hora, empleadoID)
-{
+function horaDisponible(fecha, hora, empleadoID) {
     return !citas.some(c =>
-        c.fecha === fecha &&
+        c.fecha.split("T")[0] === fecha &&
         c.hora === hora &&
-        c.empleado === empleados.find(e => e.id == empleadoID).nombre
+        String(c.empleadoId) === String(empleadoID)
     );
+}
+
+function mostrarPasoInicial() {
+    // Mostrar paso 1
+    document.getElementById("paso1").classList.remove("d-none");
+
+    // Ocultar todos los demás pasos
+    for (let i = 2; i <= 7; i++) {
+        document.getElementById("paso" + i).classList.add("d-none");
+    }
 }
 
 // Inicialización

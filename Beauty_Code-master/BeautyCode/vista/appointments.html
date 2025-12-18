@@ -53,8 +53,7 @@
         <!-- Seleccionar empleado -->
         <div id="paso2" class="d-none">
             <h3>Paso 2: Selecciona a tu manicurista</h3>
-            <select id="empleadoSelect" class="form-control" required
-            onchange="generarHorasDisponibles()">
+            <select id="empleadoSelect" class="form-control" required>
                 <option value="">Seleccione...</option>
             </select>
             <button class="btn-primary btn-error mt-3" 
@@ -64,8 +63,7 @@
         <!-- Fecha -->
         <div id="paso3" class="d-none">
             <h3>Paso 3: Selecciona una fecha</h3>
-            <input id="fechaInput" type="date" class="form-control" required
-            onchange="generarHorasDisponibles()">
+            <input id="fechaInput" type="date" class="form-control" required>
             <button class="btn-primary btn-error mt-3" 
             onclick="nextStep(3)" style="margin-bottom: 35px;">Siguiente</button>
         </div>

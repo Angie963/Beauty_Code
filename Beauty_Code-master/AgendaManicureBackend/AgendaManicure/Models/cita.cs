@@ -8,7 +8,7 @@ namespace AgendaManicure.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; } = null!;
+        public string? Id { get; set; }
 
         [BsonElement("fecha")]
         public DateTime Fecha { get; set; }
@@ -17,12 +17,10 @@ namespace AgendaManicure.Models
         public string Hora { get; set; } = string.Empty;
 
         [BsonElement("servicio_id")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ServicioId { get; set; } = null!;
+        public string ServicioId { get; set; } = string.Empty;
 
         [BsonElement("empleado_id")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string EmpleadoId { get; set; } = null!;
+        public string EmpleadoId { get; set; } = string.Empty;
 
         [BsonElement("precio_servicio")]
         public double PrecioServicio { get; set; }
@@ -41,4 +39,3 @@ namespace AgendaManicure.Models
         public DateTime CreadoEn { get; set; } = DateTime.UtcNow;
     }
 }
-

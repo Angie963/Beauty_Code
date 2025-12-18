@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beauty Code - Reseñas</title>
+    <title>Beauty Code - Citas</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,42 +11,40 @@
 
 <body class="index-body">
 
-<header>
+    <header>
     <nav id="menu">
         <div>
-            <img src="img/logo con delineado.png" alt="Logo Beauty Code" class="logo">
+            <img src="img/logo con delineado.png" alt="Logo Beauty Code", class="logo">
         </div>
         
         <div>
-            <a href="index.html"><img src="img/iconos/chimenea-de-la-casa.png" style="width:20px;padding-right:7px">Inicio</a>
-            <a href="services.html"><img src="img/iconos/bolsas-de-compras.png" style="width:22px;padding-right:7px">Servicios</a>
-            <a href="gallery.html"><img src="img/iconos/copiar-imagen.png" style="width:23px;padding-right:7px">Galería</a>
-            <a href="reviews.html"><img src="img/iconos/revision-de-comentarios.png" style="width:23px;padding-right:7px">Reseñas</a>
-            <a href="appointments.html"><img src="img/iconos/dia-del-calendario.png" style="width:20px;padding-right:7px">Citas</a>
-            
-            <!-- BOTÓN PERFIL -->
-            <a id="perfilBtn" href="perfil.html" style="display:none;">
-                <img src="img/iconos/lapiz-de-usuario.png" style="width:21px;padding-right:7px">
-                <span id="bienvenidaTexto">Perfil</span>
-            </a>
-
-            <!-- INICIAR SESIÓN -->
-            <a id="loginBtn" href="login.html">Iniciar Sesión</a>
-
-            <!-- CERRAR SESIÓN -->
-            <a id="logoutBtn" href="#" style="display:none;">Cerrar Sesión</a>
+            <a href="index.html">
+                <img src="img/iconos/chimenea-de-la-casa.png" style="width:20px;padding-right:7px">Inicio</a>
+            <a href="services.html">
+                <img src="img/iconos/bolsas-de-compras.png" style="width:22px;padding-right:7px">Servicios</a>
+            <a href="gallery.html">
+                <img src="img/iconos/copiar-imagen.png" style="width:23px;padding-right:7px">Galería</a>
+            <a href="reviews.html">
+                <img src="img/iconos/revision-de-comentarios.png" style="width:23px;padding-right:7px">Reseñas</a>
+            <a href="appointments.html">
+                <img src="img/iconos/dia-del-calendario.png" style="width:20px;padding-right:7px">Citas</a>
+            <a href="perfil.html">
+                <img src="img/iconos/lapiz-de-usuario.png" style="width:21px;padding-right:7px">Perfil</a>
+            <a href="login.html">Iniciar Sesión</a>
         </div>
     </nav>
-</header>
+    </header>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="container">
+
 
         <h1 id="saludoPrincipal">Bienvenida a Beauty Code</h1>
         <p>
             Agenda tus servicios de manicura con nuestro sistema profesional.
             Explora nuestros diseños, servicios, reseñas y gestiona tus citas fácilmente.
         </p>
+
 
         <section class="tarjeta">
             <h2>Reserva tu cita</h2>
@@ -67,6 +65,23 @@
                 <button>Ver Servicios</button>
             </a>
         </section>
+
+    <section class="slider-section">
+    <h2>Nuestros Trabajos</h2>
+    <p class="slider-text">Algunos de nuestros diseños más recientes</p>
+
+    <div class="slider">
+        <div class="slides">
+            <img src="img/servicios/uñas1.jpg" alt="Manicura 1">
+            <img src="img/servicios/uñas2.jpg" alt="Manicura 2">
+            <img src="img/servicios/uñas3.jpg" alt="Manicura 3">
+            <img src="img/servicios/uñas4.jpg" alt="Manicura 4">
+        </div>
+
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </div>
+</section>
 
     </main>
 
@@ -111,7 +126,7 @@
         window.location.reload();
     });
 </script>
+<script src="js/Sliter.js"></script>
 
 </body>
 </html>
-
